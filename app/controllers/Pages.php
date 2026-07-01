@@ -8,6 +8,10 @@ class Pages extends Controller {
 
     public function index() {
         // Fetch CMS Data
+        require_once '../app/models/BannerModel.php';
+        $bannerModel = new BannerModel();
+        $banners = $bannerModel->getActiveBanners();
+        
         $projects = $this->projectModel->getProjects();
         // Since we didn't build EventModel and GalleryModel yet, we'll pass empty arrays or mock data for now.
         // If they exist, this will use them. Let's just create a generic db query for settings.
@@ -29,6 +33,7 @@ class Pages extends Controller {
         $data = [
             'title' => 'Rotary Club of Madurai - Single Page',
             'settings' => $settings,
+            'banners' => $banners,
             'projects' => $projects,
             'events' => $events,
             'gallery' => $gallery

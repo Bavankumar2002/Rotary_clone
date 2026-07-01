@@ -1,24 +1,195 @@
 <!-- HERO SECTION -->
-<section id="home" class="masthead d-flex align-items-center position-relative" style="background: url('https://images.unsplash.com/photo-1593113565694-c6c7df332eb4?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover; min-height: 100vh;">
-    <div class="overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6);"></div>
-    <div class="container position-relative z-index-1 text-center text-white" data-aos="fade-up">
-        <h1 class="display-3 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">
-            <?= $data['settings']['hero_title'] ?? 'Rotary Club of Madurai'; ?>
-        </h1>
-        <p class="lead mb-5 mx-auto" style="max-width: 700px;">
-            <?= $data['settings']['hero_subtitle'] ?? 'Join us in making a difference in our community and around the world.'; ?>
-        </p>
-        <div>
-            <a href="#about" class="btn btn-primary rounded-pill px-5 py-3 me-3 text-uppercase fw-bold shadow-sm hero-btn">Discover More</a>
-            <a href="#donate" class="btn btn-outline-warning rounded-pill px-5 py-3 text-uppercase fw-bold shadow-sm hero-btn">Donate Now</a>
+<style>
+    /* Coverflow Slider Styles */
+    .banner-slider-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        background: #000; /* Dark background to make images pop */
+        overflow: hidden;
+        cursor: none; /* Hide default cursor to use custom one */
+        padding-top: 80px; /* Space for navbar */
+        display: flex;
+        align-items: center;
+    }
+    
+    .swiper-banner {
+        width: 100%;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .swiper-banner .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        width: 60%;
+        height: 60vh;
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+    
+    /* Make active slide normal brightness, inactive slides darker */
+    .swiper-banner .swiper-slide::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6);
+        transition: background 0.3s ease;
+    }
+    .swiper-banner .swiper-slide-active::after {
+        background: rgba(0,0,0,0.2);
+    }
+
+    .slide-content {
+        position: absolute;
+        bottom: 40px;
+        left: 40px;
+        right: 40px;
+        color: #fff;
+        z-index: 10;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+    }
+    .swiper-slide-active .slide-content {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.3s;
+    }
+
+    /* Custom Cursor */
+    .custom-cursor {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #000;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+        pointer-events: none; /* So it doesn't block clicks */
+        z-index: 9999;
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform 0.2s ease-out;
+        mix-blend-mode: difference;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .custom-cursor.active {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    @media (max-width: 768px) {
+        .swiper-banner .swiper-slide { width: 85%; height: 50vh; }
+        .slide-content { left: 20px; right: 20px; bottom: 20px; }
+        .banner-slider-container { cursor: auto; }
+        .custom-cursor { display: none; }
+    }
+</style>
+
+<section id="home" class="banner-slider-container">
+    <div class="custom-cursor" id="customCursor">Drag</div>
+    
+    <?php if(!empty($data['banners'])): ?>
+        <div class="swiper swiper-banner">
+            <div class="swiper-wrapper">
+                <?php foreach($data['banners'] as $banner): ?>
+                    <div class="swiper-slide" style="background-image: url('<?= $banner->image_url; ?>');">
+                        <div class="slide-content">
+                            <?php if(!empty($banner->title)): ?>
+                                <h1 class="display-4 fw-bold mb-2" style="font-family: 'Playfair Display', serif;"><?= $banner->title; ?></h1>
+                            <?php endif; ?>
+                            <?php if(!empty($banner->subtitle)): ?>
+                                <p class="lead mb-3"><?= $banner->subtitle; ?></p>
+                            <?php endif; ?>
+                            <?php if(!empty($banner->link_url)): ?>
+                                <a href="<?= $banner->link_url; ?>" class="btn btn-warning rounded-pill px-4 py-2 text-uppercase fw-bold">Explore</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <!-- Pagination (optional) -->
+            <div class="swiper-pagination"></div>
         </div>
-    </div>
+    <?php else: ?>
+        <!-- Fallback if no banners are added -->
+        <div class="container position-relative z-index-1 text-center text-white w-100">
+            <h1 class="display-3 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">
+                <?= $data['settings']['hero_title'] ?? 'Rotary Club of Madurai'; ?>
+            </h1>
+            <p class="lead mb-5 mx-auto" style="max-width: 700px;">
+                <?= $data['settings']['hero_subtitle'] ?? 'Join us in making a difference in our community and around the world.'; ?>
+            </p>
+        </div>
+    <?php endif; ?>
+
     <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4 pb-3 z-index-1">
         <a href="#about" class="text-white text-decoration-none">
             <i class="fas fa-chevron-down fs-3 bounce-animation"></i>
         </a>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Swiper Coverflow
+    if(document.querySelector('.swiper-banner')) {
+        const swiper = new Swiper('.swiper-banner', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            coverflowEffect: {
+                rotate: 30, // Angle of adjacent slides
+                stretch: 0,
+                depth: 100, // Z-index depth
+                modifier: 1,
+                slideShadows: true, // Swiper's built-in shadows
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    }
+
+    // Custom Cursor Logic
+    const bannerContainer = document.querySelector('.banner-slider-container');
+    const customCursor = document.getElementById('customCursor');
+
+    if(bannerContainer && customCursor) {
+        bannerContainer.addEventListener('mousemove', (e) => {
+            // Calculate relative position within the container
+            const rect = bannerContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            customCursor.style.left = `${x}px`;
+            customCursor.style.top = `${y}px`;
+        });
+
+        bannerContainer.addEventListener('mouseenter', () => {
+            customCursor.classList.add('active');
+        });
+
+        bannerContainer.addEventListener('mouseleave', () => {
+            customCursor.classList.remove('active');
+        });
+    }
+});
+</script>
 
 <!-- ABOUT SECTION -->
 <section id="about" class="py-5 bg-light">

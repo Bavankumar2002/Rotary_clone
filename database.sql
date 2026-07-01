@@ -109,6 +109,18 @@ CREATE TABLE gallery (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Banners Table
+CREATE TABLE banners (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    image_url VARCHAR(255) NOT NULL,
+    title VARCHAR(255),
+    subtitle VARCHAR(255),
+    link_url VARCHAR(255),
+    display_order INT DEFAULT 0,
+    status ENUM('Active', 'Inactive') DEFAULT 'Active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Settings Table (Site Settings)
 CREATE TABLE settings (
     setting_key VARCHAR(100) PRIMARY KEY,
