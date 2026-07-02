@@ -5,7 +5,7 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Projects Completed</div>
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Articles Written</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">54</div>
                     </div>
                     <div class="col-auto">
@@ -32,21 +32,6 @@
         </div>
     </div>
     
-    <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2 border-0 border-start border-4 border-warning">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Donations this Month</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$4,500</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-muted opacity-50"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <div class="row mt-4">
@@ -68,7 +53,7 @@
             <div class="card-body">
                 <div class="d-grid gap-2">
                     <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add New Blog</a>
-                    <a href="#" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add New Project</a>
+                    <a href="#" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add New Article</a>
                     <a href="#" class="btn btn-info btn-sm text-white"><i class="fas fa-cog"></i> Update Settings</a>
                 </div>
             </div>

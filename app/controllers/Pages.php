@@ -3,6 +3,7 @@ class Pages extends Controller {
     private $projectModel;
 
     public function __construct() {
+        if (session_status() === PHP_SESSION_NONE) { session_start(); }
         $this->projectModel = $this->model('ProjectModel');
     }
 
@@ -44,5 +45,33 @@ class Pages extends Controller {
         ];
         
         $this->view('home/index', $data);
+    }
+
+    public function submitContact() {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            
+            $data = [
+                'first_name' => trim($_POST['first_name'] ?? ''),
+                'last_name' => trim($_POST['last_name'] ?? ''),
+                'email' => trim($_POST['email'] ?? ''),
+                'phone' => trim($_POST['phone'] ?? ''),
+                'message' => trim($_POST['message'] ?? '')
+            ];
+            
+            if(!empty($data['first_name']) && !empty($data['email']) && !empty($data['message'])) {
+                $contactModel = $this->model('ContactMessageModel');
+                if($contactModel->addMessage($data)) {
+                    if (session_status() === PHP_SESSION_NONE) { session_start(); }
+                    $_SESSION['contact_success'] = 'Thank you for reaching out! We will get back to you soon.';
+                }
+            }
+            
+            header('location: ' . URLROOT . '/#contact');
+            exit;
+        } else {
+            header('location: ' . URLROOT);
+            exit;
+        }
     }
 }

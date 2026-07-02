@@ -43,7 +43,7 @@
                         <a class="nav-link text-white text-uppercase px-3 fw-semibold" href="<?= URLROOT; ?>/#about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white text-uppercase px-3 fw-semibold" href="<?= URLROOT; ?>/#projects">Projects</a>
+                        <a class="nav-link text-white text-uppercase px-3 fw-semibold" href="<?= URLROOT; ?>/#projects">Articles</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white text-uppercase px-3 fw-semibold" href="<?= URLROOT; ?>/#gallery">Gallery</a>
@@ -87,9 +87,9 @@
             <!-- 4. Footer navigation menu horizontal -->
             <div class="d-flex justify-content-center flex-wrap gap-4 mb-5">
                 <a href="<?= URLROOT; ?>/#home" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">Home</a>
-                <a href="<?= URLROOT; ?>/#about" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">About us</a>
+                <a href="<?= URLROOT; ?>/#about" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">Introduction</a>
                 <a href="<?= URLROOT; ?>/#leadership" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">Leadership</a>
-                <a href="<?= URLROOT; ?>/#projects" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">Projects</a>
+                <a href="<?= URLROOT; ?>/#projects" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">Articles</a>
                 <a href="<?= URLROOT; ?>/#events" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">Events</a>
                 <a href="<?= URLROOT; ?>/#contact" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">Contact Us</a>
             </div>

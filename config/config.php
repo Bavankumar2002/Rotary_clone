@@ -5,5 +5,5 @@ define('DB_PASS', '');
 define('DB_NAME', 'rotary_db');
 
 define('APPROOT', dirname(dirname(__FILE__)));
-define('URLROOT', 'http://localhost/Rotary_clone');
+define('URLROOT', 'http://10.129.103.190/Rotary_clone');
 define('SITENAME', 'Rotary Club of Madurai');

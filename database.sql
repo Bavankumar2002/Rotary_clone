@@ -144,3 +144,14 @@ INSERT INTO settings (setting_key, setting_value) VALUES
 ('stat_projects', '54'),
 ('stat_years', '85'),
 ('stat_beneficiaries', '10000');
+
+-- Contact Messages Table
+CREATE TABLE IF NOT EXISTS contact_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    message TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);

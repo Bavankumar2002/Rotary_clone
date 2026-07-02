@@ -4,7 +4,7 @@
     .banner-slider-container {
         position: relative;
         width: 100%;
-        /* height: 85vh; */
+        height: 105vh;
         min-height: 650px; /* Set min-height to ensure container doesn't squeeze slides on small screens */
         background: linear-gradient(135deg, #081a33 0%, #030a14 100%); /* Premium dark blue-black gradient */
         overflow: hidden;
@@ -213,16 +213,6 @@
 <section id="home" class="banner-slider-container">
     <div class="custom-cursor" id="customCursor">Drag</div>
     
-    <!-- Always show Hero Text -->
-    <div class="position-absolute w-100 text-center text-white" style="top: 150px; z-index: 10;">
-        <h1 class="display-3 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">
-            <?= $data['settings']['hero_title'] ?? 'Rotary Club of Madurai'; ?>
-        </h1>
-        <p class="lead mb-5 mx-auto" style="max-width: 700px;">
-            <?= $data['settings']['hero_subtitle'] ?? 'Join us in making a difference in our community and around the world.'; ?>
-        </p>
-    </div>
-    
     <?php if(!empty($data['banners'])): ?>
         <div class="swiper swiper-banner" style="margin-top: 150px;">
             <div class="swiper-wrapper">
@@ -230,17 +220,6 @@
                     <div class="swiper-slide">
                         <div class="slide-image-container">
                             <div class="slide-image" style="background-image: url('<?= $banner->image_url; ?>');"></div>
-                        </div>
-                        <div class="slide-content">
-                            <?php if(!empty($banner->title)): ?>
-                                <h1 class="fw-bold mb-2"><?= $banner->title; ?></h1>
-                            <?php endif; ?>
-                            <?php if(!empty($banner->subtitle)): ?>
-                                <p class="mb-3"><?= $banner->subtitle; ?></p>
-                            <?php endif; ?>
-                            <?php if(!empty($banner->link_url)): ?>
-                                <a href="<?= $banner->link_url; ?>" class="btn btn-warning rounded-pill text-uppercase fw-bold">Explore</a>
-                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -374,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             <div class="col-lg-6 ps-lg-5 gs-reveal">
-                <h6 class="text-primary fw-bold text-uppercase mb-2">About Us</h6>
+                <h6 class="text-primary fw-bold text-uppercase mb-2">Introduction</h6>
                 <h2 class="display-5 fw-bold mb-4 text-dark" style="font-family: 'Playfair Display', serif;">Service Above Self</h2>
                 <p class="text-muted mb-4 fs-5">
                     <?= $data['settings']['about_mission'] ?? 'Our mission is to provide service to others, promote integrity, and advance world understanding...'; ?>
@@ -398,7 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div>
                                 <h3 class="fw-bold mb-0 text-dark"><span class="counter-val" data-target="<?= $data['settings']['stat_projects'] ?? '50'; ?>">0</span>+</h3>
-                                <p class="text-muted small mb-0">Projects Completed</p>
+                                <p class="text-muted small mb-0">Articles Written</p>
                             </div>
                         </div>
                     </div>
@@ -417,21 +396,80 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     
     <div class="container py-4">
-        <div class="row g-4 justify-content-center">
-            <?php if(!empty($data['team_leaders'])): ?>
-                <?php foreach($data['team_leaders'] as $leader): ?>
-                    <?php if (!empty($leader->image_url)): ?>
-                        <div class="col-md-4 gs-reveal">
-                            <div class="card border-0 shadow-sm h-100 overflow-hidden" style="background-color: transparent;">
-                                <img src="<?= $leader->image_url; ?>" class="img-fluid w-100" style="object-fit: contain;" alt="Team Leaders">
+        <div class="swiper swiper-team gs-reveal" style="padding-bottom: 50px;">
+            <div class="swiper-wrapper">
+                <?php if(!empty($data['team_leaders'])): ?>
+                    <?php foreach($data['team_leaders'] as $leader): ?>
+                        <?php if (!empty($leader->image_url)): ?>
+                            <div class="swiper-slide">
+                                <div class="card border-0 shadow-sm h-100 overflow-hidden mx-auto" style="background-color: transparent; max-width: 350px;">
+                                    <img src="<?= $leader->image_url; ?>" class="img-fluid w-100" style="object-fit: contain;" alt="Team Leaders">
+                                </div>
                             </div>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <div class="col-12 text-center text-muted"><p>Team leaders image will appear here once added in the admin panel.</p></div>
-            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="swiper-slide text-center text-muted"><p>Team leaders image will appear here once added in the admin panel.</p></div>
+                <?php endif; ?>
+            </div>
+            <div class="swiper-pagination team-pagination"></div>
         </div>
+        
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if(document.querySelector('.swiper-team')) {
+                new Swiper('.swiper-team', {
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    centeredSlides: true,
+                    loop: true,
+                    grabCursor: true,
+                    autoplay: {
+                        delay: 3500,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: '.team-pagination',
+                        clickable: true,
+                    },
+                    breakpoints: {
+                        640: { slidesPerView: 1, spaceBetween: 20 },
+                        768: { slidesPerView: 2, spaceBetween: 30 },
+                        1024: { slidesPerView: 3, spaceBetween: 40 },
+                    }
+                });
+            }
+        });
+        </script>
+        <style>
+        .swiper-team {
+            padding: 20px 0 60px 0 !important;
+        }
+        .swiper-team .swiper-slide {
+            transition: all 0.4s ease;
+            transform: scale(0.8);
+            opacity: 0.5;
+        }
+        .swiper-team .swiper-slide-active {
+            transform: scale(1.2);
+            opacity: 1;
+            z-index: 10;
+            position: relative;
+        }
+        .team-pagination {
+            bottom: 0 !important;
+        }
+        .team-pagination .swiper-pagination-bullet {
+            background: var(--rotary-blue, #0b3e82);
+            opacity: 0.5;
+            width: 10px;
+            height: 10px;
+        }
+        .team-pagination .swiper-pagination-bullet-active {
+            background: var(--rotary-gold, #f7a81b);
+            opacity: 1;
+        }
+        </style>
     </div>
 </section>
 
@@ -439,9 +477,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <section id="projects" class="py-5">
     <div class="container py-5">
         <div class="text-center mb-5 gs-reveal">
-            <h6 class="text-primary fw-bold text-uppercase mb-2">Our Impact</h6>
-            <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">Recent Articles</h2>
-            <div class="mx-auto bg-primary mt-3" style="width: 60px; height: 3px;"></div>
+            <h6 class="text-primary fw-bold text-uppercase mb-2">Our Articles</h6>
+            <h2 class="display-5 fw-bold text-white" style="font-family: 'Playfair Display', serif;">Featured Articles</h2>
+            <div class="mx-auto" style="width: 60px; height: 3px; background: var(--rotary-gold, #f7a81b);"></div>
         </div>
         <div class="row g-4">
             <?php if(!empty($data['projects'])): ?>
@@ -461,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <div class="col-12 text-center text-muted"><p>No projects available right now. Check back later!</p></div>
+                <div class="col-12 text-center text-muted"><p>No articles available right now. Check back later!</p></div>
             <?php endif; ?>
         </div>
     </div>
@@ -588,34 +626,41 @@ function openLightbox(url, title, category) {
                 <p class="text-uppercase mb-2" style="font-size: 0.8rem; letter-spacing: 1px; color: #fff; font-weight: 500;">CONTACT US</p>
                 <h2 class="fw-bold mb-5" style="color: #fff; line-height: 1.2; font-size: 2.5rem;"><?= $data['settings']['contact_form_title'] ?? 'Have Questions?<br>Get In Touch!'; ?></h2>
                 
-                <form>
+
+                <?php if(isset($_SESSION['contact_success'])): ?>
+                    <div class="alert alert-success bg-transparent text-white rounded-0 mb-4" style="border: 1px solid #198754;">
+                        <i class="fas fa-check-circle me-2" style="color: #198754;"></i> <?= $_SESSION['contact_success']; ?>
+                    </div>
+                    <?php unset($_SESSION['contact_success']); ?>
+                <?php endif; ?>
+                <form action="<?= URLROOT; ?>/pages/submitContact" method="POST">
                     <div class="row mb-4">
                         <div class="col-md-6 mb-4 mb-md-0">
-                            <input type="text" class="form-control rounded-0 bg-transparent text-white shadow-none" placeholder="Name" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;">
+                            <input type="text" name="first_name" class="form-control rounded-0 bg-transparent text-white shadow-none" placeholder="Name" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;" required>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" class="form-control rounded-0 bg-transparent text-white shadow-none" placeholder="Last Name" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;">
+                            <input type="text" name="last_name" class="form-control rounded-0 bg-transparent text-white shadow-none" placeholder="Last Name" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;">
                         </div>
                     </div>
                     
                     <div class="row mb-4">
                         <div class="col-md-6 mb-4 mb-md-0">
-                            <input type="email" class="form-control rounded-0 bg-transparent text-white shadow-none" placeholder="Email" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;">
+                            <input type="email" name="email" class="form-control rounded-0 bg-transparent text-white shadow-none" placeholder="Email" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;" required>
                         </div>
                         <div class="col-md-6">
                             <div class="input-group">
                                 <span class="input-group-text rounded-0 bg-transparent border-end-0 shadow-none" style="border: 1px solid rgba(255,255,255,0.2); color: #fff;"><img src="https://flagcdn.com/w20/in.png" alt="IN" style="width: 20px;"></span>
-                                <input type="tel" class="form-control rounded-0 bg-transparent text-white border-start-0 shadow-none" placeholder="Phone" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;">
+                                <input type="tel" name="phone" class="form-control rounded-0 bg-transparent text-white border-start-0 shadow-none" placeholder="Phone" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;">
                             </div>
                         </div>
                     </div>
                     
                     <div class="mb-4">
-                        <textarea class="form-control rounded-0 bg-transparent text-white shadow-none" rows="4" placeholder="Message" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;"></textarea>
+                        <textarea name="message" class="form-control rounded-0 bg-transparent text-white shadow-none" rows="4" placeholder="Message" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;" required></textarea>
                     </div>
                     
                     <div class="form-check mb-4">
-                        <input class="form-check-input rounded-0 shadow-none" type="checkbox" id="privacyCheck" style="border: 1px solid rgba(255,255,255,0.2); background-color: transparent;">
+                        <input class="form-check-input rounded-0 shadow-none" type="checkbox" id="privacyCheck" style="border: 1px solid rgba(255,255,255,0.2); background-color: transparent;" required>
                         <label class="form-check-label text-white" for="privacyCheck" style="font-size: 0.85rem; font-weight: 500;">
                             I agree with the site's privacy policy
                         </label>

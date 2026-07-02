@@ -8,7 +8,7 @@
             <h5 class="text-primary fw-bold border-bottom pb-2 mb-3">Impact Statistics (Animated Counters)</h5>
             <div class="row">
                 <div class="col-md-4 mb-3">
-                    <label class="form-label fw-bold">Projects Count</label>
+                    <label class="form-label fw-bold">Articles Count</label>
                     <input type="number" name="stat_projects" class="form-control" value="<?= $data['settings']['stat_projects'] ?? '0'; ?>">
                 </div>
                 <div class="col-md-4 mb-3">

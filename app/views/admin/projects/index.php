@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Manage Projects</h2>
-    <a href="<?= URLROOT; ?>/adminprojects/add" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Project</a>
+    <h2>Manage Articles</h2>
+    <a href="<?= URLROOT; ?>/adminprojects/add" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Article</a>
 </div>
 
 <div class="card shadow border-0">
@@ -33,7 +33,7 @@
                     <?php endforeach; ?>
                     <?php if(empty($data['projects'])) : ?>
                     <tr>
-                        <td colspan="5" class="text-center text-muted">No projects found.</td>
+                        <td colspan="5" class="text-center text-muted">No articles found.</td>
                     </tr>
                     <?php endif; ?>
                 </tbody>
