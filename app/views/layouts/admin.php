@@ -25,14 +25,12 @@
             <h4 class="text-center mb-4"><i class="fas fa-cog text-primary"></i> CMS Admin</h4>
             <hr class="border-secondary">
             <a href="<?= URLROOT; ?>/admin/dashboard" class="active"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
-            <a href="<?= URLROOT; ?>/adminpages"><i class="fas fa-file-alt me-2"></i> Pages</a>
             <a href="<?= URLROOT; ?>/adminbanners"><i class="fas fa-images me-2"></i> Banners</a>
-            <a href="<?= URLROOT; ?>/adminblogs"><i class="fas fa-blog me-2"></i> Blogs</a>
             <a href="<?= URLROOT; ?>/adminevents"><i class="fas fa-calendar-alt me-2"></i> Events</a>
             <a href="<?= URLROOT; ?>/adminprojects"><i class="fas fa-project-diagram me-2"></i> Projects</a>
-            <a href="<?= URLROOT; ?>/adminmembers"><i class="fas fa-users me-2"></i> Members</a>
             <a href="<?= URLROOT; ?>/admingallery"><i class="fas fa-images me-2"></i> Gallery</a>
             <a href="<?= URLROOT; ?>/adminsettings"><i class="fas fa-cogs me-2"></i> Settings</a>
+            <a href="<?= URLROOT; ?>/admincontact"><i class="fas fa-envelope-open-text me-2"></i> Contact Page</a>
             <hr class="border-secondary">
             <a href="<?= URLROOT; ?>/admin/logout" class="text-danger"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
         </div>

@@ -11,7 +11,6 @@ try {
     ('hero_title', 'Welcome to Rotary Club of Madurai'),
     ('hero_subtitle', 'Join us in making a difference in our community and around the world.'),
     ('about_mission', 'Our mission is to provide service to others, promote integrity, and advance world understanding, goodwill, and peace through our fellowship of business, professional, and community leaders.'),
-    ('stat_members', '150'),
     ('stat_projects', '54'),
     ('stat_years', '85'),
     ('stat_beneficiaries', '10000');";

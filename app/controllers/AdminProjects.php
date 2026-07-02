@@ -30,8 +30,23 @@ class AdminProjects extends Controller {
                 'slug' => strtolower(str_replace(' ', '-', trim($_POST['title']))),
                 'description' => trim($_POST['description']),
                 'content' => trim($_POST['content']),
-                'status' => trim($_POST['status'])
+                'status' => trim($_POST['status']),
+                'image_url' => ''
             ];
+
+            // Handle file upload
+            if (!empty($_FILES['image']['name'])) {
+                $target_dir = APPROOT . '/public/uploads/';
+                if(!is_dir($target_dir)) {
+                    mkdir($target_dir, 0755, true);
+                }
+                $file_name = time() . '_' . basename($_FILES["image"]["name"]);
+                $target_file = $target_dir . $file_name;
+                
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                    $data['image_url'] = URLROOT . '/public/uploads/' . $file_name;
+                }
+            }
 
             if($this->projectModel->addProject($data)) {
                 header('location: ' . URLROOT . '/adminprojects');
@@ -43,9 +58,58 @@ class AdminProjects extends Controller {
                 'title' => '',
                 'description' => '',
                 'content' => '',
-                'status' => ''
+                'status' => '',
+                'image_url' => ''
             ];
             $this->view('admin/projects/add', $data);
+        }
+    }
+
+    public function edit($id) {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $project = $this->projectModel->getProjectById($id);
+
+            $data = [
+                'id' => $id,
+                'title' => trim($_POST['title']),
+                'slug' => strtolower(str_replace(' ', '-', trim($_POST['title']))),
+                'description' => trim($_POST['description']),
+                'content' => trim($_POST['content']),
+                'status' => trim($_POST['status']),
+                'image_url' => $project->image_url
+            ];
+
+            // Handle file upload
+            if (!empty($_FILES['image']['name'])) {
+                $target_dir = APPROOT . '/public/uploads/';
+                if(!is_dir($target_dir)) {
+                    mkdir($target_dir, 0755, true);
+                }
+                $file_name = time() . '_' . basename($_FILES["image"]["name"]);
+                $target_file = $target_dir . $file_name;
+                
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                    $data['image_url'] = URLROOT . '/public/uploads/' . $file_name;
+                }
+            }
+
+            if($this->projectModel->updateProject($data)) {
+                header('location: ' . URLROOT . '/adminprojects');
+            } else {
+                die('Something went wrong');
+            }
+        } else {
+            $project = $this->projectModel->getProjectById($id);
+            $data = [
+                'id' => $project->id,
+                'title' => $project->title,
+                'description' => $project->description,
+                'content' => $project->content,
+                'status' => $project->status,
+                'image_url' => $project->image_url
+            ];
+            $this->view('admin/projects/edit', $data);
         }
     }
 

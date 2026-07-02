@@ -7,10 +7,15 @@
         <h5 class="m-0 font-weight-bold text-primary">Add New Project</h5>
     </div>
     <div class="card-body">
-        <form action="<?= URLROOT; ?>/adminprojects/add" method="POST">
+        <form action="<?= URLROOT; ?>/adminprojects/add" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label fw-bold">Project Title</label>
                 <input type="text" name="title" class="form-control" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label fw-bold">Project Image</label>
+                <input type="file" name="image" class="form-control">
             </div>
             
             <div class="mb-3">

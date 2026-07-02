@@ -52,19 +52,15 @@
 
             <h5 class="text-primary fw-bold border-bottom pb-2 mb-3 mt-4">Impact Statistics (Animated Counters)</h5>
             <div class="row">
-                <div class="col-md-3 mb-3">
-                    <label class="form-label fw-bold">Members Count</label>
-                    <input type="number" name="stat_members" class="form-control" value="<?= $data['settings']['stat_members'] ?? '0'; ?>">
-                </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-4 mb-3">
                     <label class="form-label fw-bold">Projects Count</label>
                     <input type="number" name="stat_projects" class="form-control" value="<?= $data['settings']['stat_projects'] ?? '0'; ?>">
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-4 mb-3">
                     <label class="form-label fw-bold">Years of Service</label>
                     <input type="number" name="stat_years" class="form-control" value="<?= $data['settings']['stat_years'] ?? '0'; ?>">
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-4 mb-3">
                     <label class="form-label fw-bold">Beneficiaries Count</label>
                     <input type="number" name="stat_beneficiaries" class="form-control" value="<?= $data['settings']['stat_beneficiaries'] ?? '0'; ?>">
                 </div>

@@ -28,8 +28,8 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top glass" id="mainNav">
         <div class="container">
-            <a class="navbar-brand text-white fw-bold fs-3" href="<?= URLROOT; ?>" style="font-family: 'Playfair Display', serif;">
-                <span class="text-gold">Rotary</span> Madurai
+            <a class="navbar-brand d-flex align-items-center" href="<?= URLROOT; ?>">
+                <img src="<?= URLROOT; ?>/assets/images/logo.png" alt="Rotary Club of Madurai Jallikattu" style="height: 95px; width: auto; max-width: 100%; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
             </a>
             <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
                 <span class="navbar-toggler-icon"></span>
@@ -46,9 +46,6 @@
                         <a class="nav-link text-white text-uppercase px-3 fw-semibold" href="<?= URLROOT; ?>/#projects">Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white text-uppercase px-3 fw-semibold" href="<?= URLROOT; ?>/#events">Events</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link text-white text-uppercase px-3 fw-semibold" href="<?= URLROOT; ?>/#gallery">Gallery</a>
                     </li>
                     <li class="nav-item">
@@ -56,7 +53,7 @@
                     </li>
                 </ul>
                 <div class="d-flex ms-lg-3 mt-3 mt-lg-0">
-                    <a href="<?= URLROOT; ?>/#donate" class="btn btn-outline-warning rounded-pill px-4 fw-bold hero-btn">Donate Now</a>
+                    <!-- Donate button removed as requested -->
                 </div>
             </div>
         </div>
@@ -65,54 +62,44 @@
     <!-- Content -->
     <?php require_once '../app/views/' . $view . '.php'; ?>
 
-    <!-- Premium Footer -->
-    <footer class="premium-footer text-white">
-        <div class="container pb-5">
-            <div class="row gy-4">
-                <div class="col-lg-4 col-md-6">
-                    <h3 class="mb-4 font-playfair text-gold">Rotary Club of Madurai</h3>
-                    <p class="text-muted pe-4">Established in 1938, we are dedicated to community service, health, education, and international understanding.</p>
-                    <div class="d-flex gap-3 mt-4">
-                        <a href="#" class="text-white fs-4"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white fs-4"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white fs-4"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white fs-4"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                    <h5 class="mb-4">Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="footer-link">About Us</a></li>
-                        <li class="mb-2"><a href="#" class="footer-link">Our Projects</a></li>
-                        <li class="mb-2"><a href="#" class="footer-link">Events</a></li>
-                        <li class="mb-2"><a href="#" class="footer-link">Gallery</a></li>
-                        <li class="mb-2"><a href="#" class="footer-link">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="mb-4">Contact Info</h5>
-                    <ul class="list-unstyled text-muted">
-                        <li class="mb-3"><i class="fas fa-map-marker-alt me-2 text-gold"></i> 123 Rotary Avenue, Madurai, TN, India</li>
-                        <li class="mb-3"><i class="fas fa-phone me-2 text-gold"></i> +91 1234567890</li>
-                        <li class="mb-3"><i class="fas fa-envelope me-2 text-gold"></i> info@rotarymadurai.org</li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="mb-4">Newsletter</h5>
-                    <p class="text-muted">Subscribe to our newsletter to get latest updates.</p>
-                    <form class="mt-3">
-                        <div class="input-group">
-                            <input type="email" class="form-control bg-dark border-secondary text-white" placeholder="Email Address">
-                            <button class="btn btn-primary" type="button"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                    </form>
+    <!-- Premium Centered Footer -->
+    <footer class="text-center py-5" style="background-color: #000; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container">
+            <!-- 1. Title -->
+            <h5 class="text-uppercase mb-4" style="color: #c9a050; font-family: 'Inter', sans-serif; letter-spacing: 2px; font-weight: 500; font-size: 1rem;">
+                Rotary Club of Madurai
+            </h5>
+
+            <!-- 2. Logo / Banner -->
+            <div class="mb-4 d-flex justify-content-center">
+                <div style="background: #fff; padding: 15px; display: inline-block; border-radius: 4px;">
+                    <img src="<?= URLROOT; ?>/assets/images/logo.png" alt="Rotary Club Logo" style="height: 120px; width: auto; max-width: 100%;">
                 </div>
             </div>
-        </div>
-        <div class="bg-black py-3 text-center text-muted">
-            <div class="container">
-                <small>&copy; <?= date('Y'); ?> Rotary Club of Madurai. All Rights Reserved. Designed with <i class="fas fa-heart text-danger"></i></small>
+
+            <!-- 3. Social links with icons and text -->
+            <div class="d-flex justify-content-center gap-4 mb-4">
+                <a href="#" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;"><i class="fab fa-facebook-square me-1"></i> Facebook</a>
+                <a href="#" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;"><i class="fab fa-twitter-square me-1"></i> Twitter</a>
+                <a href="#" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;"><i class="fab fa-linkedin me-1"></i> LinkedIn</a>
             </div>
+
+            <!-- 4. Footer navigation menu horizontal -->
+            <div class="d-flex justify-content-center flex-wrap gap-4 mb-5">
+                <a href="<?= URLROOT; ?>/#home" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">Home</a>
+                <a href="<?= URLROOT; ?>/#about" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">About us</a>
+                <a href="<?= URLROOT; ?>/#leadership" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">Leadership</a>
+                <a href="<?= URLROOT; ?>/#projects" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">Projects</a>
+                <a href="<?= URLROOT; ?>/#events" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">Events</a>
+                <a href="<?= URLROOT; ?>/#contact" class="text-decoration-none" style="color: #c9a050; font-size: 0.85rem;">Contact Us</a>
+            </div>
+
+            <hr class="border-secondary opacity-25 my-4 mx-auto" style="max-width: 100%;">
+
+            <!-- 5. Copyright -->
+            <p class="mb-0 mt-4" style="color: #c9a050; font-size: 0.8rem;">
+                SHREETECH INNOVATIVE IT R&D  &copy; 2026. All rights reserved.
+            </p>
         </div>
     </footer>
 

@@ -14,7 +14,12 @@ body {
     overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
 }
@@ -40,6 +45,15 @@ h1, h2, h3, h4, h5, h6 {
     backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-brand img {
+    height: 95px;
+    transition: height 0.4s ease;
+}
+
+#mainNav.navbar-scrolled .navbar-brand img {
+    height: 75px;
 }
 
 .nav-link {
@@ -83,9 +97,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .hero-content {

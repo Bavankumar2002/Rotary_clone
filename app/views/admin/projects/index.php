@@ -24,7 +24,7 @@
                         <td><span class="badge bg-<?= $project->status == 'Completed' ? 'success' : 'warning'; ?>"><?= $project->status; ?></span></td>
                         <td><?= date('M d, Y', strtotime($project->created_at)); ?></td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-info text-white"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="<?= URLROOT; ?>/adminprojects/edit/<?= $project->id; ?>" class="btn btn-sm btn-info text-white"><i class="fas fa-edit"></i> Edit</a>
                             <form action="<?= URLROOT; ?>/adminprojects/delete/<?= $project->id; ?>" method="POST" class="d-inline">
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this project?');"><i class="fas fa-trash"></i> Delete</button>
                             </form>
