@@ -14,12 +14,51 @@ class AdminBanners extends Controller {
     }
 
     public function index() {
+        // Fetch hero settings
+        $db = new Database;
+        $settings = ['hero_title' => '', 'hero_subtitle' => ''];
+        $db->query("SELECT * FROM settings WHERE setting_key IN ('hero_title', 'hero_subtitle')");
+        $settingsData = $db->resultSet();
+        foreach($settingsData as $s) {
+            $settings[$s->setting_key] = $s->setting_value;
+        }
+
         $banners = $this->bannerModel->getBanners();
         $data = [
-            'title' => 'Manage Banners',
-            'banners' => $banners
+            'title' => 'Manage Banners & Hero Section',
+            'banners' => $banners,
+            'settings' => $settings
         ];
         $this->view('admin/banners/index', $data);
+    }
+
+    public function updateHero() {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $db = new Database;
+            
+            $settingsToUpdate = [
+                'hero_title' => trim($_POST['hero_title']),
+                'hero_subtitle' => trim($_POST['hero_subtitle'])
+            ];
+
+            foreach($settingsToUpdate as $key => $value) {
+                $db->query("SELECT * FROM settings WHERE setting_key = :key");
+                $db->bind(':key', $key);
+                $row = $db->single();
+
+                if($row) {
+                    $db->query("UPDATE settings SET setting_value = :value WHERE setting_key = :key");
+                } else {
+                    $db->query("INSERT INTO settings (setting_key, setting_value) VALUES (:key, :value)");
+                }
+                $db->bind(':value', $value);
+                $db->bind(':key', $key);
+                $db->execute();
+            }
+            header('Location: ' . URLROOT . '/adminbanners');
+            exit;
+        }
     }
 
     public function create() {

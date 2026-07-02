@@ -16,10 +16,30 @@ class AdminContact extends Controller {
             $settingsToUpdate = [
                 'contact_banner_subtitle' => trim($_POST['contact_banner_subtitle']),
                 'contact_banner_title' => trim($_POST['contact_banner_title']),
-                'contact_banner_image' => trim($_POST['contact_banner_image']),
-                'contact_section_image' => trim($_POST['contact_section_image']),
                 'contact_form_title' => trim($_POST['contact_form_title'])
             ];
+
+            // Image Upload Handling
+            $target_dir = APPROOT . '/public/uploads/';
+            if(!is_dir($target_dir)) {
+                mkdir($target_dir, 0755, true);
+            }
+
+            if (!empty($_FILES['contact_banner_image']['name'])) {
+                $file_name = time() . '_banner_' . basename($_FILES["contact_banner_image"]["name"]);
+                $target_file = $target_dir . $file_name;
+                if (move_uploaded_file($_FILES["contact_banner_image"]["tmp_name"], $target_file)) {
+                    $settingsToUpdate['contact_banner_image'] = URLROOT . '/public/uploads/' . $file_name;
+                }
+            }
+
+            if (!empty($_FILES['contact_section_image']['name'])) {
+                $file_name = time() . '_contact_' . basename($_FILES["contact_section_image"]["name"]);
+                $target_file = $target_dir . $file_name;
+                if (move_uploaded_file($_FILES["contact_section_image"]["tmp_name"], $target_file)) {
+                    $settingsToUpdate['contact_section_image'] = URLROOT . '/public/uploads/' . $file_name;
+                }
+            }
 
             foreach($settingsToUpdate as $key => $value) {
                 // Check if setting exists

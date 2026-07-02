@@ -210,8 +210,18 @@
 <section id="home" class="banner-slider-container">
     <div class="custom-cursor" id="customCursor">Drag</div>
     
+    <!-- Always show Hero Text -->
+    <div class="position-absolute w-100 text-center text-white" style="top: 150px; z-index: 10;">
+        <h1 class="display-3 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">
+            <?= $data['settings']['hero_title'] ?? 'Rotary Club of Madurai'; ?>
+        </h1>
+        <p class="lead mb-5 mx-auto" style="max-width: 700px;">
+            <?= $data['settings']['hero_subtitle'] ?? 'Join us in making a difference in our community and around the world.'; ?>
+        </p>
+    </div>
+    
     <?php if(!empty($data['banners'])): ?>
-        <div class="swiper swiper-banner">
+        <div class="swiper swiper-banner" style="margin-top: 150px;">
             <div class="swiper-wrapper">
                 <?php foreach($data['banners'] as $banner): ?>
                     <div class="swiper-slide">
@@ -234,16 +244,6 @@
             </div>
             <!-- Pagination (dynamic wave) -->
             <div class="swiper-pagination"></div>
-        </div>
-    <?php else: ?>
-        <!-- Fallback if no banners are added -->
-        <div class="container position-relative z-index-1 text-center text-white w-100">
-            <h1 class="display-3 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">
-                <?= $data['settings']['hero_title'] ?? 'Rotary Club of Madurai'; ?>
-            </h1>
-            <p class="lead mb-5 mx-auto" style="max-width: 700px;">
-                <?= $data['settings']['hero_subtitle'] ?? 'Join us in making a difference in our community and around the world.'; ?>
-            </p>
         </div>
     <?php endif; ?>
 </section>
@@ -405,12 +405,39 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 </section>
 
+<!-- TEAM LEADERS SECTION -->
+<section id="team" class="py-5 bg-light">
+    <div class="text-center mb-5 gs-reveal">
+        <h6 class="text-primary fw-bold text-uppercase mb-2">Our Leadership</h6>
+        <h2 class="display-5 fw-bold text-dark" style="font-family: 'Playfair Display', serif;">Team Leaders</h2>
+        <div class="mx-auto bg-primary mt-3" style="width: 60px; height: 3px;"></div>
+    </div>
+    
+    <div class="container py-4">
+        <div class="row g-4 justify-content-center">
+            <?php if(!empty($data['team_leaders'])): ?>
+                <?php foreach($data['team_leaders'] as $leader): ?>
+                    <?php if (!empty($leader->image_url)): ?>
+                        <div class="col-md-4 gs-reveal">
+                            <div class="card border-0 shadow-sm h-100 overflow-hidden" style="background-color: transparent;">
+                                <img src="<?= $leader->image_url; ?>" class="img-fluid w-100" style="object-fit: contain;" alt="Team Leaders">
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="col-12 text-center text-muted"><p>Team leaders image will appear here once added in the admin panel.</p></div>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
+
 <!-- PROJECTS SECTION -->
 <section id="projects" class="py-5">
     <div class="container py-5">
         <div class="text-center mb-5 gs-reveal">
             <h6 class="text-primary fw-bold text-uppercase mb-2">Our Impact</h6>
-            <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">Recent Projects</h2>
+            <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">Recent Articles</h2>
             <div class="mx-auto bg-primary mt-3" style="width: 60px; height: 3px;"></div>
         </div>
         <div class="row g-4">

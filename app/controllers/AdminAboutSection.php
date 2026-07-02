@@ -1,5 +1,5 @@
 <?php
-class AdminSettings extends Controller {
+class AdminAboutSection extends Controller {
     private $db;
 
     public function __construct() {
@@ -13,19 +13,34 @@ class AdminSettings extends Controller {
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            foreach($_POST as $key => $value) {
-                // Update setting
-                $this->db->query("UPDATE settings SET setting_value = :value WHERE setting_key = :key");
+            $settingsToUpdate = [
+                'about_mission' => trim($_POST['about_mission'])
+            ];
+
+            foreach($settingsToUpdate as $key => $value) {
+                $this->db->query("SELECT * FROM settings WHERE setting_key = :key");
+                $this->db->bind(':key', $key);
+                $row = $this->db->single();
+
+                if($row) {
+                    $this->db->query("UPDATE settings SET setting_value = :value WHERE setting_key = :key");
+                } else {
+                    $this->db->query("INSERT INTO settings (setting_key, setting_value) VALUES (:key, :value)");
+                }
                 $this->db->bind(':value', $value);
                 $this->db->bind(':key', $key);
                 $this->db->execute();
             }
 
-            header('location: ' . URLROOT . '/adminsettings');
+            header('location: ' . URLROOT . '/adminaboutsection');
         } else {
-            $this->db->query("SELECT * FROM settings");
+            $settings = [
+                'about_mission' => ''
+            ];
+
+            $this->db->query("SELECT * FROM settings WHERE setting_key = 'about_mission'");
             $settingsData = $this->db->resultSet();
-            $settings = [];
+            
             foreach($settingsData as $s) {
                 $settings[$s->setting_key] = $s->setting_value;
             }
@@ -34,7 +49,7 @@ class AdminSettings extends Controller {
                 'settings' => $settings
             ];
 
-            $this->view('admin/settings/index', $data);
+            $this->view('admin/settings/about', $data);
         }
     }
 

@@ -3,13 +3,13 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="card shadow border-0 mb-4">
             <div class="card-header bg-white py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Edit Contact Section Content</h6>
             </div>
             <div class="card-body">
-                <form action="<?= URLROOT; ?>/admincontact" method="POST">
+                <form action="<?= URLROOT; ?>/admincontact" method="POST" enctype="multipart/form-data">
                     
                     <h5 class="fw-bold mb-3 mt-2 border-bottom pb-2">"Join With Us" Banner</h5>
                     
@@ -24,9 +24,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Banner Image URL</label>
-                        <input type="text" name="contact_banner_image" class="form-control" value="<?= htmlspecialchars($data['settings']['contact_banner_image'] ?? ''); ?>" required>
-                        <small class="text-muted">Enter a valid URL for the banner background image.</small>
+                        <label class="form-label fw-bold">Banner Image</label>
+                        <?php if(!empty($data['settings']['contact_banner_image'])): ?>
+                            <div class="mb-2">
+                                <img src="<?= $data['settings']['contact_banner_image'] ?>" style="width: 150px; height: auto; border-radius: 4px;" alt="Current Image">
+                            </div>
+                        <?php endif; ?>
+                        <input type="file" name="contact_banner_image" class="form-control" accept="image/*">
+                        <small class="text-muted">Upload a new image to replace the current one.</small>
                     </div>
 
                     <h5 class="fw-bold mb-3 mt-5 border-bottom pb-2">Main Contact Form Section</h5>
@@ -38,23 +43,18 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label fw-bold">Contact Section Image URL (Left Side)</label>
-                        <input type="text" name="contact_section_image" class="form-control" value="<?= htmlspecialchars($data['settings']['contact_section_image'] ?? ''); ?>" required>
-                        <small class="text-muted">Enter a valid URL for the left-side image of the contact section.</small>
+                        <label class="form-label fw-bold">Contact Section Image (Left Side)</label>
+                        <?php if(!empty($data['settings']['contact_section_image'])): ?>
+                            <div class="mb-2">
+                                <img src="<?= $data['settings']['contact_section_image'] ?>" style="width: 150px; height: auto; border-radius: 4px;" alt="Current Image">
+                            </div>
+                        <?php endif; ?>
+                        <input type="file" name="contact_section_image" class="form-control" accept="image/*">
+                        <small class="text-muted">Upload a new image to replace the current one.</small>
                     </div>
 
                     <button type="submit" class="btn btn-primary px-4"><i class="fas fa-save"></i> Save Changes</button>
                 </form>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-lg-4">
-        <div class="card shadow border-0">
-            <div class="card-body bg-light rounded text-center py-5">
-                <i class="fas fa-info-circle fs-1 text-primary mb-3"></i>
-                <h5 class="fw-bold">Contact Settings</h5>
-                <p class="text-muted mb-0">Update the text and images used in the footer Contact Us section directly from here. Changes will instantly appear on the public homepage.</p>
             </div>
         </div>
     </div>

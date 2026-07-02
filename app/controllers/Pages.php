@@ -30,13 +30,17 @@ class Pages extends Controller {
         $db->query("SELECT * FROM gallery ORDER BY created_at DESC LIMIT 8");
         $gallery = $db->resultSet();
 
+        $db->query("SELECT * FROM team_leaders ORDER BY display_order ASC, id DESC");
+        $team_leaders = $db->resultSet();
+
         $data = [
             'title' => 'Rotary Club of Madurai - Single Page',
             'settings' => $settings,
             'banners' => $banners,
             'projects' => $projects,
             'events' => $events,
-            'gallery' => $gallery
+            'gallery' => $gallery,
+            'team_leaders' => $team_leaders
         ];
         
         $this->view('home/index', $data);
