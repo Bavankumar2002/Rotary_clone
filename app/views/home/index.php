@@ -18,7 +18,7 @@
     
     .swiper-banner {
         width: 100%;
-        max-width: 1100px; /* Restrict width to show exactly 3 cards elegantly */
+        max-width: 1400px; /* Restrict width to show exactly 3 cards elegantly */
         margin: 0 auto;
         padding-top: 20px;
         padding-bottom: 20px;
@@ -26,6 +26,7 @@
     }
 
     .swiper-banner .swiper-slide {
+        width: 800px;
         background: transparent;
         height: 520px;
         border-radius: 0;
@@ -39,8 +40,8 @@
     }
     
     .slide-image-container {
-        width: 300px; /* Fixed width of the image card */
-        height: 360px;
+        width: 800px; /* Fixed width of the image card */
+        height: 450px;
         border-radius: 24px;
         overflow: hidden;
         box-shadow: 0 15px 35px rgba(0,0,0,0.5);
@@ -62,8 +63,8 @@
         position: absolute;
         top: 0; left: 50%;
         transform: translateX(-50%);
-        width: 300px; /* Match the image container width */
-        height: 360px;
+        width: 800px; /* Match the image container width */
+        height: 450px;
         border-radius: 24px;
         background: rgba(0,0,0,0.5);
         transition: background 0.3s ease;
@@ -179,14 +180,16 @@
             cursor: auto;
         }
         .swiper-banner .swiper-slide {
-            width: 240px;
-            height: 450px;
+            width: 320px;
+            height: 380px;
         }
         .slide-image-container {
-            height: 300px;
+            width: 320px;
+            height: 180px;
         }
         .swiper-banner .swiper-slide::after {
-            height: 300px;
+            width: 320px;
+            height: 180px;
         }
         .slide-content {
             margin-top: 15px;
@@ -264,10 +267,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 disableOnInteraction: false,
             },
             coverflowEffect: {
-                rotate: 0,        // Flat style like reference image
-                stretch: -30,     // Spacing between cards (negative pulls them closer)
-                depth: 120,       // Scale and Z-index depth for adjacent slides (lower value makes them visible)
-                modifier: 1,
+                rotate: 0,        
+                stretch: 0,     
+                depth: 150,       
+                modifier: 1.5,
                 slideShadows: false,
             },
             pagination: {
@@ -276,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             breakpoints: {
                 768: {
-                    slidesPerView: 3,
+                    slidesPerView: 'auto',
                 },
                 0: {
                     slidesPerView: 1,
