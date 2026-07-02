@@ -23,14 +23,6 @@
                 <textarea name="description" class="form-control" rows="2" required></textarea>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Status</label>
-                <select name="status" class="form-select">
-                    <option value="Completed">Completed</option>
-                    <option value="Ongoing">Ongoing</option>
-                    <option value="Planned">Planned</option>
-                </select>
-            </div>
 
             <div class="mb-4">
                 <label class="form-label fw-bold">Full Content</label>

@@ -14,8 +14,23 @@ class AdminAboutSection extends Controller {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $settingsToUpdate = [
-                'about_mission' => trim($_POST['about_mission'])
+                'about_mission' => trim($_POST['about_mission']),
+                'about_title' => trim($_POST['about_title'])
             ];
+
+            // Handle file upload for about_image
+            if (!empty($_FILES['about_image']['name'])) {
+                $target_dir = APPROOT . '/public/uploads/';
+                if(!is_dir($target_dir)) {
+                    mkdir($target_dir, 0755, true);
+                }
+                $file_name = time() . '_' . basename($_FILES["about_image"]["name"]);
+                $target_file = $target_dir . $file_name;
+                
+                if (move_uploaded_file($_FILES["about_image"]["tmp_name"], $target_file)) {
+                    $settingsToUpdate['about_image'] = URLROOT . '/public/uploads/' . $file_name;
+                }
+            }
 
             foreach($settingsToUpdate as $key => $value) {
                 $this->db->query("SELECT * FROM settings WHERE setting_key = :key");
@@ -35,10 +50,12 @@ class AdminAboutSection extends Controller {
             header('location: ' . URLROOT . '/adminaboutsection');
         } else {
             $settings = [
-                'about_mission' => ''
+                'about_mission' => '',
+                'about_title' => '',
+                'about_image' => ''
             ];
 
-            $this->db->query("SELECT * FROM settings WHERE setting_key = 'about_mission'");
+            $this->db->query("SELECT * FROM settings WHERE setting_key IN ('about_mission', 'about_title', 'about_image')");
             $settingsData = $this->db->resultSet();
             
             foreach($settingsData as $s) {

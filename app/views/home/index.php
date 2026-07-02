@@ -6,7 +6,7 @@
         width: 100%;
         height: 105vh;
         min-height: 650px; /* Set min-height to ensure container doesn't squeeze slides on small screens */
-        background: linear-gradient(135deg, #081a33 0%, #030a14 100%); /* Premium dark blue-black gradient */
+        background: transparent; /* CSS handles the gradient now */
         overflow: hidden;
         cursor: none; /* Hide default cursor to use custom one */
         padding-top: 180px; /* Increased padding to move elements down and prevent overlapping with header */
@@ -96,7 +96,6 @@
 
     .slide-content h1 {
         font-size: 1.8rem !important;
-        font-family: 'Playfair Display', serif;
         font-weight: 700;
         text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
@@ -340,12 +339,12 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!-- ABOUT SECTION -->
-<section id="about" class="py-5 bg-light">
+<section id="about" class="page-section" style="background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);">
     <div class="container py-5">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0 gs-reveal">
                 <div class="position-relative">
-                    <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2070&auto=format&fit=crop" class="img-fluid rounded-4 shadow-lg" alt="About Rotary">
+                    <img src="<?= $data['settings']['about_image'] ?? 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2070&auto=format&fit=crop'; ?>" class="img-fluid rounded-4 shadow-lg" alt="About Rotary">
                     <div class="position-absolute bottom-0 end-0 bg-primary text-white p-4 rounded-4 shadow translate-middle-x mb-n4 me-n4 d-none d-lg-block">
                         <h3 class="fw-bold mb-0">Since 1938</h3>
                         <p class="mb-0 small">Serving Humanity</p>
@@ -353,46 +352,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             <div class="col-lg-6 ps-lg-5 gs-reveal">
-                <h6 class="text-primary fw-bold text-uppercase mb-2">Introduction</h6>
-                <h2 class="display-5 fw-bold mb-4 text-dark" style="font-family: 'Playfair Display', serif;">Service Above Self</h2>
+                <h6 class="text-blue fw-bold text-uppercase mb-2">Introduction</h6>
+                <h2 class="display-5 fw-bold mb-4"><?= $data['settings']['about_title'] ?? 'Service Above Self'; ?></h2>
                 <p class="text-muted mb-4 fs-5">
                     <?= $data['settings']['about_mission'] ?? 'Our mission is to provide service to others, promote integrity, and advance world understanding...'; ?>
                 </p>
-                <div class="row g-4 mt-2">
-                    <div class="col-6">
-                        <div class="d-flex align-items-center">
-                            <div class="bg-primary bg-opacity-10 p-3 rounded-3 me-3 text-primary">
-                                <i class="fas fa-award fs-4"></i>
-                            </div>
-                            <div>
-                                <h3 class="fw-bold mb-0 text-dark"><span class="counter-val" data-target="<?= $data['settings']['stat_years'] ?? '85'; ?>">0</span>+</h3>
-                                <p class="text-muted small mb-0">Years of Service</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="d-flex align-items-center">
-                            <div class="bg-warning bg-opacity-10 p-3 rounded-3 me-3 text-warning">
-                                <i class="fas fa-project-diagram fs-4"></i>
-                            </div>
-                            <div>
-                                <h3 class="fw-bold mb-0 text-dark"><span class="counter-val" data-target="<?= $data['settings']['stat_projects'] ?? '50'; ?>">0</span>+</h3>
-                                <p class="text-muted small mb-0">Articles Written</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- TEAM LEADERS SECTION -->
-<section id="team" class="py-5 bg-light">
+<section id="team" class="page-section bg-white">
     <div class="text-center mb-5 gs-reveal">
-        <h6 class="text-primary fw-bold text-uppercase mb-2">Our Leadership</h6>
-        <h2 class="display-5 fw-bold text-dark" style="font-family: 'Playfair Display', serif;">Team Leaders</h2>
-        <div class="mx-auto bg-primary mt-3" style="width: 60px; height: 3px;"></div>
+        <h6 class="text-blue fw-bold text-uppercase mb-2">Our Leadership</h6>
+        <h2 class="display-5 fw-bold">Team Leaders</h2>
+        <div class="divider"></div>
     </div>
     
     <div class="container py-4">
@@ -421,7 +396,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 new Swiper('.swiper-team', {
                     slidesPerView: 1,
                     spaceBetween: 30,
-                    centeredSlides: true,
                     loop: true,
                     grabCursor: true,
                     autoplay: {
@@ -445,17 +419,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .swiper-team {
             padding: 20px 0 60px 0 !important;
         }
-        .swiper-team .swiper-slide {
-            transition: all 0.4s ease;
-            transform: scale(0.8);
-            opacity: 0.5;
-        }
-        .swiper-team .swiper-slide-active {
-            transform: scale(1.2);
-            opacity: 1;
-            z-index: 10;
-            position: relative;
-        }
         .team-pagination {
             bottom: 0 !important;
         }
@@ -473,35 +436,142 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 </section>
 
-<!-- PROJECTS SECTION -->
-<section id="projects" class="py-5">
+<!-- EVENTS SECTION -->
+<section id="events" class="page-section" style="background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);">
     <div class="container py-5">
         <div class="text-center mb-5 gs-reveal">
-            <h6 class="text-primary fw-bold text-uppercase mb-2">Our Articles</h6>
-            <h2 class="display-5 fw-bold text-white" style="font-family: 'Playfair Display', serif;">Featured Articles</h2>
-            <div class="mx-auto" style="width: 60px; height: 3px; background: var(--rotary-gold, #f7a81b);"></div>
+            <h6 class="text-blue fw-bold text-uppercase mb-2">Our Activities</h6>
+            <h2 class="display-5 fw-bold">Events</h2>
+            <div class="divider"></div>
         </div>
         <div class="row g-4">
-            <?php if(!empty($data['projects'])): ?>
-                <?php foreach(array_slice($data['projects'], 0, 3) as $project): ?>
-                <div class="col-md-4 gs-reveal">
-                    <div class="card h-100 border-0 shadow-sm project-card overflow-hidden">
-                        <div class="position-relative overflow-hidden" style="height: 250px;">
-                            <?php $projImg = !empty($project->image_url) ? $project->image_url : 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop'; ?>
-                            <img src="<?= $projImg; ?>" class="card-img-top w-100 h-100 object-fit-cover transition-transform" alt="<?= htmlspecialchars($project->title); ?>">
-                            <div class="position-absolute top-0 end-0 m-3 badge bg-primary"><?= $project->status; ?></div>
-                        </div>
-                        <div class="card-body p-4">
-                            <h5 class="fw-bold mb-3"><?= $project->title; ?></h5>
-                            <p class="text-muted small mb-0"><?= substr(strip_tags($project->content), 0, 100); ?>...</p>
-                        </div>
+            <?php 
+                // Default fallback items to maintain the 2x2 grid
+                $displayEvents = [
+                    (object)[
+                        'title' => 'Community Service',
+                        'description' => 'Making a difference through local development, education, and support programs.',
+                        'image_url' => 'https://images.unsplash.com/photo-1593113565630-1e2ad96d5180?q=80&w=2000&auto=format&fit=crop'
+                    ],
+                    (object)[
+                        'title' => 'Youth Programs',
+                        'description' => 'Run by specialist doctors with strong academic and clinical backgrounds, delivering precise and personalized treatment you can rely on.',
+                        'image_url' => 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop'
+                    ],
+                    (object)[
+                        'title' => 'Health Camps',
+                        'description' => 'Promoting wellness with free medical checkups, awareness drives, and care access.',
+                        'image_url' => 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop'
+                    ],
+                    (object)[
+                        'title' => 'Rotary Foundation Contributions',
+                        'description' => 'Supporting global good through grants, scholarships, and sustainable impact projects.',
+                        'image_url' => 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=2070&auto=format&fit=crop'
+                    ]
+                ];
+
+                // Override fallbacks with actual events from the database
+                if(!empty($data['events'])) {
+                    foreach($data['events'] as $index => $dbEvent) {
+                        if($index < 4) {
+                            $displayEvents[$index] = $dbEvent;
+                        }
+                    }
+                }
+            ?>
+            
+            <?php foreach($displayEvents as $event): ?>
+            <div class="col-md-6 gs-reveal">
+                <div class="d-flex align-items-center bg-white p-3 h-100" style="border: 1px solid rgba(0,0,0,0.05);">
+                    <div class="flex-shrink-0" style="width: 140px; height: 100px;">
+                        <?php $evtImg = !empty($event->image_url) ? $event->image_url : 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop'; ?>
+                        <img src="<?= $evtImg; ?>" class="w-100 h-100 object-fit-cover rounded-1" alt="<?= htmlspecialchars($event->title); ?>">
+                    </div>
+                    <div class="flex-grow-1 ms-4">
+                        <h5 class="fw-bold text-dark mb-1" style="font-size: 1.1rem;"><?= $event->title; ?></h5>
+                        <p class="text-muted small mb-0" style="font-size: 0.85rem;"><?= substr(strip_tags($event->description ?? ($event->content ?? '')), 0, 100); ?></p>
                     </div>
                 </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <div class="col-12 text-center text-muted"><p>No articles available right now. Check back later!</p></div>
-            <?php endif; ?>
+            </div>
+            <?php endforeach; ?>
         </div>
+    </div>
+</section>
+
+<!-- PROJECTS SECTION -->
+<section id="projects" class="page-section bg-white">
+    <div class="container py-5">
+        <div class="text-center mb-5 gs-reveal">
+            <h6 class="text-blue fw-bold text-uppercase mb-2">Our Articles</h6>
+            <h2 class="display-5 fw-bold">Featured Articles</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="swiper swiper-articles gs-reveal" style="padding-bottom: 50px;">
+            <div class="swiper-wrapper">
+                <?php if(!empty($data['projects'])): ?>
+                    <?php foreach($data['projects'] as $project): ?>
+                    <div class="swiper-slide">
+                        <div class="card h-100 modern-card mx-auto" style="max-width: 400px;">
+                            <div class="position-relative overflow-hidden" style="height: 250px;">
+                                <?php $projImg = !empty($project->image_url) ? $project->image_url : 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop'; ?>
+                                <img src="<?= $projImg; ?>" class="card-img-top w-100 h-100 object-fit-cover transition-transform" alt="<?= htmlspecialchars($project->title); ?>">
+                                <div class="position-absolute top-0 end-0 m-3 badge" style="background-color: var(--primary-blue);"><?= $project->status; ?></div>
+                            </div>
+                            <div class="card-body p-4 text-start">
+                                <h5 class="fw-bold mb-3"><?= $project->title; ?></h5>
+                                <div style="height: 2px; width: 40px; background-color: var(--accent-gold); margin-bottom: 1rem;"></div>
+                                <p class="text-muted small mb-0"><?= substr(strip_tags($project->content), 0, 100); ?>...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="swiper-slide text-center text-muted"><p>No articles available right now. Check back later!</p></div>
+                <?php endif; ?>
+            </div>
+            <div class="swiper-pagination articles-pagination"></div>
+        </div>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if(document.querySelector('.swiper-articles')) {
+                new Swiper('.swiper-articles', {
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    loop: true,
+                    grabCursor: true,
+                    autoplay: {
+                        delay: 4000,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: '.articles-pagination',
+                        clickable: true,
+                    },
+                    breakpoints: {
+                        640: { slidesPerView: 1, spaceBetween: 20 },
+                        768: { slidesPerView: 2, spaceBetween: 30 },
+                        1024: { slidesPerView: 3, spaceBetween: 40 },
+                    }
+                });
+            }
+        });
+        </script>
+        <style>
+        .articles-pagination {
+            bottom: 0 !important;
+        }
+        .articles-pagination .swiper-pagination-bullet {
+            background: var(--rotary-blue, #0b3e82);
+            opacity: 0.5;
+            width: 10px;
+            height: 10px;
+        }
+        .articles-pagination .swiper-pagination-bullet-active {
+            background: var(--rotary-gold, #f7a81b);
+            opacity: 1;
+        }
+        </style>
     </div>
 </section>
 
@@ -530,12 +600,12 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 </style>
 
-<section id="gallery" class="py-5 bg-dark text-white position-relative" style="background: linear-gradient(135deg, #121824 0%, #0a0e17 100%);">
+<section id="gallery" class="page-section" style="background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);">
     <div class="container py-5">
         <div class="text-center mb-5 gs-reveal">
-            <h6 class="text-warning fw-bold text-uppercase mb-2">Our Moments</h6>
-            <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">Photo Gallery</h2>
-            <div class="mx-auto bg-warning mt-3" style="width: 60px; height: 3px;"></div>
+            <h6 class="text-blue fw-bold text-uppercase mb-2">Our Moments</h6>
+            <h2 class="display-5 fw-bold">Photo Gallery</h2>
+            <div class="divider"></div>
         </div>
         
         <div class="row g-4">
@@ -594,88 +664,74 @@ function openLightbox(url, title, category) {
 }
 </script>
 
-<!-- CALL TO ACTION BANNER -->
-<section class="container-fluid p-0">
-    <div class="row g-0">
-        <div class="col-lg-6 d-flex align-items-center justify-content-center text-center text-lg-start" style="background-color: #1a1a1a; min-height: 200px; padding: 3rem;">
-            <div>
-                <p class="text-uppercase mb-2 text-white-50 fw-bold" style="font-size: 0.75rem; letter-spacing: 1.5px;"><?= htmlspecialchars($data['settings']['contact_banner_subtitle'] ?? 'JOIN WITH US'); ?></p>
-                <h2 class="text-white fw-bold mb-0" style="font-size: 2rem;"><?= htmlspecialchars($data['settings']['contact_banner_title'] ?? 'Connect. Serve. Lead. Become a Rotarian today.'); ?></h2>
-            </div>
-        </div>
-        <div class="col-lg-6" style="background-image: url('<?= htmlspecialchars($data['settings']['contact_banner_image'] ?? 'https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'); ?>'); background-size: cover; background-position: center; min-height: 200px;">
-        </div>
-    </div>
-</section>
 
 <!-- CONTACT SECTION -->
-<style>
-    #contact .form-control::placeholder {
-        color: rgba(255, 255, 255, 0.6) !important;
-    }
-</style>
-<section id="contact" class="container-fluid p-0">
-    <div class="row g-0">
-        <!-- Left Image Half -->
-        <div class="col-lg-6" style="background-image: url('<?= htmlspecialchars($data['settings']['contact_section_image'] ?? 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'); ?>'); background-size: cover; background-position: center; min-height: 500px;">
-        </div>
-        
-        <!-- Right Form Half -->
-        <div class="col-lg-6 d-flex align-items-center" style="background-color: #222222; padding: 5rem;">
-            <div class="w-100" style="max-width: 600px; margin: 0 auto;">
-                <p class="text-uppercase mb-2" style="font-size: 0.8rem; letter-spacing: 1px; color: #fff; font-weight: 500;">CONTACT US</p>
-                <h2 class="fw-bold mb-5" style="color: #fff; line-height: 1.2; font-size: 2.5rem;"><?= $data['settings']['contact_form_title'] ?? 'Have Questions?<br>Get In Touch!'; ?></h2>
+<section id="contact" class="page-section bg-white">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7">
+                <div class="text-center mb-5 gs-reveal">
+                    <h6 class="text-blue fw-bold text-uppercase mb-2">CONTACT US</h6>
+                    <h2 class="display-5 fw-bold" style="line-height: 1.2;"><?= $data['settings']['contact_form_title'] ?? 'Have Questions?<br>Get In Touch!'; ?></h2>
+                    <div class="divider"></div>
+                </div>
                 
-
-                <?php if(isset($_SESSION['contact_success'])): ?>
-                    <div class="alert alert-success bg-transparent text-white rounded-0 mb-4" style="border: 1px solid #198754;">
-                        <i class="fas fa-check-circle me-2" style="color: #198754;"></i> <?= $_SESSION['contact_success']; ?>
-                    </div>
-                    <?php unset($_SESSION['contact_success']); ?>
-                <?php endif; ?>
-                <form action="<?= URLROOT; ?>/pages/submitContact" method="POST">
-                    <div class="row mb-4">
-                        <div class="col-md-6 mb-4 mb-md-0">
-                            <input type="text" name="first_name" class="form-control rounded-0 bg-transparent text-white shadow-none" placeholder="Name" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;" required>
+                <div class="p-4 p-md-5 rounded-4 shadow-sm modern-card gs-reveal">
+                    <style>
+                        /* Force placeholder colors directly on the page to avoid caching issues */
+                        .modern-card .form-control::placeholder { color: #000000 !important; opacity: 1 !important; }
+                        .modern-card .form-control::-webkit-input-placeholder { color: #000000 !important; opacity: 1 !important; }
+                        .modern-card .form-control::-moz-placeholder { color: #000000 !important; opacity: 1 !important; }
+                        .modern-card .form-control:-ms-input-placeholder { color: #000000 !important; opacity: 1 !important; }
+                        .modern-card .form-control::-ms-input-placeholder { color: #000000 !important; opacity: 1 !important; }
+                    </style>
+                    <?php if(isset($_SESSION['contact_success'])): ?>
+                        <div class="alert alert-success bg-transparent text-success rounded-0 mb-4" style="border: 1px solid #198754;">
+                            <i class="fas fa-check-circle me-2" style="color: #198754;"></i> <?= $_SESSION['contact_success']; ?>
                         </div>
-                        <div class="col-md-6">
-                            <input type="text" name="last_name" class="form-control rounded-0 bg-transparent text-white shadow-none" placeholder="Last Name" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;">
-                        </div>
-                    </div>
-                    
-                    <div class="row mb-4">
-                        <div class="col-md-6 mb-4 mb-md-0">
-                            <input type="email" name="email" class="form-control rounded-0 bg-transparent text-white shadow-none" placeholder="Email" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;" required>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group">
-                                <span class="input-group-text rounded-0 bg-transparent border-end-0 shadow-none" style="border: 1px solid rgba(255,255,255,0.2); color: #fff;"><img src="https://flagcdn.com/w20/in.png" alt="IN" style="width: 20px;"></span>
-                                <input type="tel" name="phone" class="form-control rounded-0 bg-transparent text-white border-start-0 shadow-none" placeholder="Phone" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;">
+                        <?php unset($_SESSION['contact_success']); ?>
+                    <?php endif; ?>
+                    <form action="<?= URLROOT; ?>/pages/submitContact" method="POST">
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-4 mb-md-0">
+                                <input type="text" name="first_name" class="form-control bg-light text-dark shadow-none" placeholder="First Name" style="border: 1px solid var(--border-color); padding: 12px 15px;" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="last_name" class="form-control bg-light text-dark shadow-none" placeholder="Last Name" style="border: 1px solid var(--border-color); padding: 12px 15px;">
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <textarea name="message" class="form-control rounded-0 bg-transparent text-white shadow-none" rows="4" placeholder="Message" style="border: 1px solid rgba(255,255,255,0.2); padding: 12px 15px;" required></textarea>
-                    </div>
-                    
-                    <div class="form-check mb-4">
-                        <input class="form-check-input rounded-0 shadow-none" type="checkbox" id="privacyCheck" style="border: 1px solid rgba(255,255,255,0.2); background-color: transparent;" required>
-                        <label class="form-check-label text-white" for="privacyCheck" style="font-size: 0.85rem; font-weight: 500;">
-                            I agree with the site's privacy policy
-                        </label>
-                    </div>
-                    
-                    <button type="submit" class="btn fw-bold px-4 py-2 rounded-0 shadow-none" style="background-color: #c9a050; color: #fff;">Get In Touch</button>
-                </form>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-4 mb-md-0">
+                                <input type="email" name="email" class="form-control bg-light text-dark shadow-none" placeholder="Email Address" style="border: 1px solid var(--border-color); padding: 12px 15px;" required>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0 shadow-none" style="border: 1px solid var(--border-color);"><img src="https://flagcdn.com/w20/in.png" alt="IN" style="width: 20px;"></span>
+                                    <input type="tel" name="phone" class="form-control bg-light text-dark border-start-0 shadow-none" placeholder="Phone Number" style="border: 1px solid var(--border-color); padding: 12px 15px;">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <textarea name="message" class="form-control bg-light text-dark shadow-none" rows="5" placeholder="Your Message" style="border: 1px solid var(--border-color); padding: 12px 15px;" required></textarea>
+                        </div>
+                        
+                        <div class="form-check mb-5">
+                            <input class="form-check-input shadow-none" type="checkbox" id="privacyCheck" style="border: 1px solid var(--border-color);" required>
+                            <label class="form-check-label text-muted" for="privacyCheck" style="font-size: 0.85rem;">
+                                I agree with the site's privacy policy
+                            </label>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="bg-dark text-white py-4 border-top border-secondary">
-    <div class="container text-center">
-        <p class="mb-0 text-white-50 small">&copy; <?= date('Y'); ?> <?= $data['settings']['site_name'] ?? 'Rotary Club'; ?>. All Rights Reserved.</p>
-    </div>
-</footer>
+

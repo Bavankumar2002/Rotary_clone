@@ -29,14 +29,6 @@
                 <textarea name="description" class="form-control" rows="2" required><?= htmlspecialchars($data['description']); ?></textarea>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Status</label>
-                <select name="status" class="form-select">
-                    <option value="Completed" <?= $data['status'] == 'Completed' ? 'selected' : ''; ?>>Completed</option>
-                    <option value="Ongoing" <?= $data['status'] == 'Ongoing' ? 'selected' : ''; ?>>Ongoing</option>
-                    <option value="Planned" <?= $data['status'] == 'Planned' ? 'selected' : ''; ?>>Planned</option>
-                </select>
-            </div>
 
             <div class="mb-4">
                 <label class="form-label fw-bold">Full Content</label>

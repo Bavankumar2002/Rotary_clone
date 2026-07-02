@@ -11,8 +11,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
-                        <th>Status</th>
-                        <th>Created At</th>
+                        <th>Short Description</th>
+                        <th>Full Content</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -21,8 +21,8 @@
                     <tr>
                         <td><?= $project->id; ?></td>
                         <td><?= $project->title; ?></td>
-                        <td><span class="badge bg-<?= $project->status == 'Completed' ? 'success' : 'warning'; ?>"><?= $project->status; ?></span></td>
-                        <td><?= date('M d, Y', strtotime($project->created_at)); ?></td>
+                        <td><?= htmlspecialchars(substr(strip_tags($project->description ?? ''), 0, 50)) . (strlen(strip_tags($project->description ?? '')) > 50 ? '...' : ''); ?></td>
+                        <td><?= htmlspecialchars(substr(strip_tags($project->content ?? ''), 0, 50)) . (strlen(strip_tags($project->content ?? '')) > 50 ? '...' : ''); ?></td>
                         <td>
                             <a href="<?= URLROOT; ?>/adminprojects/edit/<?= $project->id; ?>" class="btn btn-sm btn-info text-white"><i class="fas fa-edit"></i> Edit</a>
                             <form action="<?= URLROOT; ?>/adminprojects/delete/<?= $project->id; ?>" method="POST" class="d-inline">
