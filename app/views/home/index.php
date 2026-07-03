@@ -26,9 +26,9 @@
     }
 
     .swiper-banner .swiper-slide {
-        width: 800px;
+        width: 1000px;
         background: transparent;
-        height: 520px;
+        height: 550px;
         border-radius: 0;
         overflow: visible;
         position: relative;
@@ -40,8 +40,8 @@
     }
     
     .slide-image-container {
-        width: 800px; /* Fixed width of the image card */
-        height: 450px;
+        width: 1000px; /* Fixed width of the image card */
+        height: 550px;
         border-radius: 24px;
         overflow: hidden;
         box-shadow: 0 15px 35px rgba(0,0,0,0.5);
@@ -63,8 +63,8 @@
         position: absolute;
         top: 0; left: 50%;
         transform: translateX(-50%);
-        width: 800px; /* Match the image container width */
-        height: 450px;
+        width: 1000px; /* Match the image container width */
+        height: 550px;
         border-radius: 24px;
         background: rgba(0,0,0,0.5);
         transition: background 0.3s ease;
@@ -118,7 +118,7 @@
         position: absolute;
         width: 80px;
         height: 80px;
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.6);
         color: #000;
         border-radius: 50%;
         display: flex;
@@ -130,8 +130,6 @@
         z-index: 999; /* Stay below navigation header */
         transform: translate(-50%, -50%) scale(0);
         transition: transform 0.2s ease-out;
-        mix-blend-mode: difference;
-        color: #fff;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
@@ -158,7 +156,7 @@
     .swiper-pagination-bullet {
         width: 3px !important;
         height: 8px; /* Dynamic height applied by JS */
-        background: #fff !important;
+        background: #13265c !important;
         opacity: 0.3 !important;
         border-radius: 4px !important;
         margin: 0 !important;
@@ -240,10 +238,11 @@ document.addEventListener('DOMContentLoaded', function() {
             loop: true,
             loopAdditionalSlides: 3,
             speed: 600,
-            autoplay: {
-                delay: 4500,
-                disableOnInteraction: false,
-            },
+            autoplay: false,
+            // {
+            //     delay: 1500,
+            //     disableOnInteraction: false,
+            // },
             coverflowEffect: {
                 rotate: 0,        
                 stretch: 0,     
@@ -338,6 +337,30 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<?php if (!empty($data['settings']['latest_news_text'])): ?>
+<!-- LATEST NEWS MARQUEE SECTION -->
+<section class="py-2 gs-reveal" style="background: linear-gradient(90deg, #051a3d 0%, #0b3e82 50%, #051a3d 100%); border-top: 1px solid rgba(247, 168, 27, 0.3); border-bottom: 1px solid rgba(247, 168, 27, 0.3); box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; z-index: 10;">
+    <div class="container-fluid px-md-4">
+        <div class="d-flex align-items-center">
+            <div class="fw-bold px-4 py-2 text-uppercase me-3 d-flex align-items-center shadow-sm rounded-pill" style="white-space: nowrap; background: linear-gradient(135deg, #f7a81b 0%, #e0930f 100%); color: #051a3d; font-size: 0.85rem; letter-spacing: 0.5px;">
+                <i class="fas fa-bolt me-2" style="font-size: 1rem;"></i> Latest News
+            </div>
+            <div class="flex-grow-1 overflow-hidden position-relative" style="white-space: nowrap;">
+                <!-- Gradient overlays for smooth fade out at edges -->
+                <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 30px; background: linear-gradient(to right, #072352 0%, transparent 100%); z-index: 2;"></div>
+                <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 30px; background: linear-gradient(to left, #072352 0%, transparent 100%); z-index: 2;"></div>
+                
+                <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();" class="m-0 pt-1 text-white" style="font-family: 'Manrope', sans-serif; font-size: 1.05rem; letter-spacing: 0.5px; opacity: 0.95;">
+                    <i class="fas fa-circle ms-4 me-3" style="font-size: 6px; vertical-align: middle; color: #f7a81b;"></i>
+                    <?= $data['settings']['latest_news_text']; ?>
+                    <i class="fas fa-circle ms-4 me-3" style="font-size: 6px; vertical-align: middle; color: #f7a81b;"></i>
+                </marquee>
+            </div>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
 <!-- ABOUT SECTION -->
 <section id="about" class="page-section" style="background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);">
     <div class="container py-5">
@@ -346,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="position-relative">
                     <img src="<?= $data['settings']['about_image'] ?? 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2070&auto=format&fit=crop'; ?>" class="img-fluid rounded-4 shadow-lg" alt="About Rotary">
                     <div class="position-absolute bottom-0 end-0 bg-primary text-white p-4 rounded-4 shadow translate-middle-x mb-n4 me-n4 d-none d-lg-block">
-                        <h3 class="fw-bold mb-0">Since 1938</h3>
+                        <h3 class="fw-bold mb-0 text-white">Since 1938</h3>
                         <p class="mb-0 small">Serving Humanity</p>
                     </div>
                 </div>
@@ -361,6 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </section>
+
 
 <!-- TEAM LEADERS SECTION -->
 <section id="team" class="page-section bg-white">
@@ -437,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- EVENTS SECTION -->
 <section id="events" class="page-section" style="background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);">
-    <div class="container py-5">
+    <div class="container">
         <div class="text-center mb-5 gs-reveal">
             <h6 class="text-blue fw-bold text-uppercase mb-2">Our Activities</h6>
             <h2 class="display-5 fw-bold">Events</h2>
@@ -499,7 +523,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- PROJECTS SECTION -->
 <section id="projects" class="page-section bg-white">
-    <div class="container py-5">
+    <div class="container">
         <div class="text-center mb-5 gs-reveal">
             <h6 class="text-blue fw-bold text-uppercase mb-2">Our Articles</h6>
             <h2 class="display-5 fw-bold">Featured Articles</h2>
@@ -600,7 +624,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </style>
 
 <section id="gallery" class="page-section" style="background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);">
-    <div class="container py-5">
+    <div class="container">
         <div class="text-center mb-5 gs-reveal">
             <h6 class="text-blue fw-bold text-uppercase mb-2">Our Moments</h6>
             <h2 class="display-5 fw-bold">Photo Gallery</h2>

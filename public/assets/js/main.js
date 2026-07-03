@@ -7,24 +7,33 @@ document.addEventListener("DOMContentLoaded", function () {
         mirror: false
     });
 
-    // Navbar shrink function
-    var navbarShrink = function () {
-        const mainNav = document.body.querySelector('#mainNav');
-        if (!mainNav) {
-            return;
-        }
-        if (window.scrollY === 0) {
-            mainNav.classList.remove('navbar-scrolled')
-        } else {
-            mainNav.classList.add('navbar-scrolled')
-        }
-    };
-
-    // Shrink the navbar 
-    navbarShrink();
-
-    // Shrink the navbar when page is scrolled
-    document.addEventListener('scroll', navbarShrink);
+    // Navbar hide/show on scroll
+    let lastScrollTop = 0;
+    const mainNav = document.body.querySelector('#mainNav');
+    
+    if (mainNav) {
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Add scrolled class when not at the top
+            if (scrollTop === 0) {
+                mainNav.classList.remove('navbar-scrolled');
+                mainNav.classList.remove('navbar-hidden');
+            } else {
+                mainNav.classList.add('navbar-scrolled');
+                
+                // Standard behavior: Hide on scroll DOWN, Show on scroll UP
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    // Scrolling DOWN the page -> hide navbar
+                    mainNav.classList.add('navbar-hidden');
+                } else {
+                    // Scrolling UP the page -> show navbar
+                    mainNav.classList.remove('navbar-hidden');
+                }
+            }
+            lastScrollTop = scrollTop;
+        });
+    }
 
     // GSAP Animations
     gsap.registerPlugin(ScrollTrigger);

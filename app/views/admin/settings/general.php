@@ -28,6 +28,14 @@
                     <input type="text" name="contact_phone" class="form-control" value="<?= $data['settings']['contact_phone'] ?? ''; ?>">
                 </div>
             </div>
+            <h5 class="text-primary fw-bold border-bottom pb-2 mb-3 mt-4">Latest News Marquee</h5>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <label class="form-label fw-bold">Marquee Text</label>
+                    <input type="text" name="latest_news_text" class="form-control" value="<?= $data['settings']['latest_news_text'] ?? ''; ?>" placeholder="Enter latest news or updates to display in the marquee...">
+                    <small class="text-muted">This text will scroll horizontally across the screen next to the introduction section.</small>
+                </div>
+            </div>
 
             <div class="mt-4">
                 <button type="submit" class="btn btn-success px-5 fw-bold"><i class="fas fa-save"></i> Save Settings</button>

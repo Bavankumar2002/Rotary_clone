@@ -87,7 +87,7 @@
                 </div>
 
                 <!-- Center Column: Links (Line by line) -->
-                <div class="col-md-4 text-center mb-4 mb-md-0 d-flex flex-column justify-content-end">
+                <div class="col-md-4 mb-4 mb-md-0 d-flex flex-column justify-content-end">
                     <div class="d-flex flex-column gap-3">
                         <a href="<?= URLROOT; ?>/#home" class="text-decoration-none" style="color: #c9a050; font-size: 0.95rem;">Home</a>
                         <a href="<?= URLROOT; ?>/#about" class="text-decoration-none" style="color: #c9a050; font-size: 0.95rem;">Introduction</a>
@@ -96,7 +96,7 @@
                 </div>
                 
                 <!-- Right Column: Bottom aligned links -->
-                <div class="col-md-4 text-center text-md-end mb-4 mb-md-0 d-flex flex-column justify-content-end">
+                <div class="col-md-4 mb-4 mb-md-0 d-flex flex-column justify-content-end">
                     <div class="d-flex flex-column gap-3">
                         <a href="<?= URLROOT; ?>/#projects" class="text-decoration-none" style="color: #c9a050; font-size: 0.95rem;">Articles</a>
                         <a href="<?= URLROOT; ?>/#events" class="text-decoration-none" style="color: #c9a050; font-size: 0.95rem;">Events</a>

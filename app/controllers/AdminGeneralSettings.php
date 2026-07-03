@@ -17,7 +17,8 @@ class AdminGeneralSettings extends Controller {
                 'site_name' => trim($_POST['site_name']),
                 'motto' => trim($_POST['motto']),
                 'contact_email' => trim($_POST['contact_email']),
-                'contact_phone' => trim($_POST['contact_phone'])
+                'contact_phone' => trim($_POST['contact_phone']),
+                'latest_news_text' => trim($_POST['latest_news_text'] ?? '')
             ];
 
             foreach($settingsToUpdate as $key => $value) {
@@ -41,10 +42,11 @@ class AdminGeneralSettings extends Controller {
                 'site_name' => '',
                 'motto' => '',
                 'contact_email' => '',
-                'contact_phone' => ''
+                'contact_phone' => '',
+                'latest_news_text' => ''
             ];
 
-            $this->db->query("SELECT * FROM settings WHERE setting_key IN ('site_name', 'motto', 'contact_email', 'contact_phone')");
+            $this->db->query("SELECT * FROM settings WHERE setting_key IN ('site_name', 'motto', 'contact_email', 'contact_phone', 'latest_news_text')");
             $settingsData = $this->db->resultSet();
             
             foreach($settingsData as $s) {
