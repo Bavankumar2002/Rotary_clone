@@ -41,7 +41,19 @@
                 <h6 class="m-0 font-weight-bold text-primary">Recent Activity</h6>
             </div>
             <div class="card-body">
-                <p>No recent activity found.</p>
+                <?php if(!empty($data['recent_messages'])): ?>
+                    <ul class="list-group list-group-flush">
+                        <?php foreach($data['recent_messages'] as $message): ?>
+                            <li class="list-group-item">
+                                <strong><?php echo htmlspecialchars($message->first_name . ' ' . $message->last_name); ?></strong> sent a message.
+                                <br>
+                                <small class="text-muted"><?php echo date('M j, Y h:i A', strtotime($message->created_at)); ?></small>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <p>No recent activity found.</p>
+                <?php endif; ?>
             </div>
         </div>
     </div>

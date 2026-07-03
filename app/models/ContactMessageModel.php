@@ -26,6 +26,12 @@ class ContactMessageModel {
         $this->db->query('SELECT * FROM contact_messages ORDER BY created_at DESC');
         return $this->db->resultSet();
     }
+
+    public function getRecentMessages($days = 1) {
+        $this->db->query('SELECT * FROM contact_messages WHERE created_at >= DATE_SUB(NOW(), INTERVAL :days DAY) ORDER BY created_at DESC');
+        $this->db->bind(':days', $days);
+        return $this->db->resultSet();
+    }
     
     public function deleteMessage($id) {
         $this->db->query('DELETE FROM contact_messages WHERE id = :id');

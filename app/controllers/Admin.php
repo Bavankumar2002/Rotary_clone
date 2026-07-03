@@ -91,8 +91,12 @@ class Admin extends Controller {
             $this->redirect('admin/login');
         }
 
+        $contactMessageModel = $this->model('ContactMessageModel');
+        $recentMessages = $contactMessageModel->getRecentMessages(1);
+
         $data = [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'recent_messages' => $recentMessages
         ];
 
         $this->view('admin/dashboard', $data);

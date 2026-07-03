@@ -9,7 +9,7 @@
         background: transparent; /* CSS handles the gradient now */
         overflow: hidden;
         cursor: none; /* Hide default cursor to use custom one */
-        padding-top: 180px; /* Increased padding to move elements down and prevent overlapping with header */
+        padding-top: 100px; /* Increased padding to move elements down and prevent overlapping with header */
         display: flex;
         align-items: flex-end; /* Align elements to the bottom to safeguard header space */
         justify-content: center;
@@ -174,8 +174,8 @@
         .banner-slider-container {
             height: auto;
             min-height: 0;
-            padding-top: 100px;
-            padding-bottom: 40px;
+            /* padding-top: 40px; */
+            padding-bottom: 6px;
             cursor: auto;
         }
         .swiper-banner .swiper-slide {
