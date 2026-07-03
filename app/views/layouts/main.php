@@ -24,6 +24,10 @@
     <link rel="stylesheet" href="<?= URLROOT; ?>/assets/css/style.css?v=1.2">
 </head>
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <img src="<?= URLROOT; ?>/assets/images/logo.png" alt="Loading...">
+    </div>
     
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top glass" id="mainNav">
@@ -35,7 +39,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
                     <li class="nav-item">
                         <a class="nav-link px-3" href="<?= URLROOT; ?>/#home">Home</a>
                     </li>
@@ -52,8 +56,8 @@
                         <a class="nav-link px-3" href="<?= URLROOT; ?>/#contact">Contact</a>
                     </li>
                 </ul>
-                <div class="d-flex ms-lg-3 mt-3 mt-lg-0">
-                    <a href="<?= URLROOT; ?>/#contact" class="btn btn-primary rounded-pill px-4 shadow-sm" style="font-family: 'Manrope', sans-serif;">Join Rotary</a>
+                <div class="d-flex ms-lg-3 mt-3 mt-lg-0 justify-content-center">
+                    <a href="<?= URLROOT; ?>/#contact" class="btn btn-primary rounded-pill px-4 shadow-sm" style="font-family: 'Manrope', sans-serif; font-size: 15px;">Join Rotary</a>
                 </div>
             </div>
         </div>
@@ -87,7 +91,7 @@
                 </div>
 
                 <!-- Center Column: Links (Line by line) -->
-                <div class="col-md-4 mb-4 mb-md-0 d-flex flex-column justify-content-end">
+                <div class="col-md-4 mb-4 mb-md-0 d-flex text-center text-md-start flex-column justify-content-end">
                     <div class="d-flex flex-column gap-3">
                         <a href="<?= URLROOT; ?>/#home" class="text-decoration-none" style="color: #c9a050; font-size: 0.95rem;">Home</a>
                         <a href="<?= URLROOT; ?>/#about" class="text-decoration-none" style="color: #c9a050; font-size: 0.95rem;">Introduction</a>
@@ -96,7 +100,7 @@
                 </div>
                 
                 <!-- Right Column: Bottom aligned links -->
-                <div class="col-md-4 mb-4 mb-md-0 d-flex flex-column justify-content-end">
+                <div class="col-md-4 mb-4 mb-md-0 d-flex flex-column text-center text-md-start justify-content-end">
                     <div class="d-flex flex-column gap-3">
                         <a href="<?= URLROOT; ?>/#projects" class="text-decoration-none" style="color: #c9a050; font-size: 0.95rem;">Articles</a>
                         <a href="<?= URLROOT; ?>/#events" class="text-decoration-none" style="color: #c9a050; font-size: 0.95rem;">Events</a>
@@ -108,10 +112,10 @@
             <hr class="border-secondary opacity-25 my-4 mx-auto" style="max-width: 100%;">
 
             <!-- Copyright -->
-            <div class="text-center">
-                <p class="mb-0 mt-4" style="color: #c9a050; font-size: 0.8rem;">
+            <div class="text-center mt-4">
+                <marquee class="mb-0" style="color: #c9a050; font-size: 0.8rem;" behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
                     SHREETECH INNOVATIVE IT R&D  &copy; 2026. All rights reserved.
-                </p>
+                </marquee>
             </div>
         </div>
     </footer>

@@ -25,7 +25,7 @@ class Pages extends Controller {
             $settings[$s->setting_key] = $s->setting_value;
         }
 
-        $db->query("SELECT * FROM events ORDER BY event_date DESC LIMIT 4");
+        $db->query("SELECT * FROM events ORDER BY event_date DESC");
         $events = $db->resultSet();
 
         $db->query("SELECT * FROM gallery ORDER BY created_at DESC");

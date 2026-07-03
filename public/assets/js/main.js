@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Hide Preloader after 5 seconds
+    setTimeout(function() {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            preloader.classList.add('hidden');
+        }
+    }, 5000);
+
     // Initialize AOS
     AOS.init({
         duration: 1000,

@@ -152,6 +152,14 @@
         height: 40px;
         gap: 6px;
     }
+
+    @media (max-width: 425px)
+    {
+         .swiper-pagination {
+        position: relative !important;
+        bottom: 100px !important;
+    }
+    }
     
     .swiper-pagination-bullet {
         width: 3px !important;
@@ -170,23 +178,23 @@
 
     @media (max-width: 768px) {
         .banner-slider-container {
-            height: auto;
+            height: 700px;
             min-height: 0;
             /* padding-top: 40px; */
             padding-bottom: 6px;
             cursor: auto;
         }
         .swiper-banner .swiper-slide {
-            width: 320px;
+            width: 400px;
             height: 380px;
         }
         .slide-image-container {
-            width: 320px;
-            height: 180px;
+            width: 400px;
+            height: 250px;
         }
         .swiper-banner .swiper-slide::after {
-            width: 320px;
-            height: 180px;
+            width: 400px;
+            height: 250px;
         }
         .slide-content {
             margin-top: 15px;
@@ -205,6 +213,12 @@
             display: none;
         }
     }
+
+    .form-control::placeholder {
+    color: #6c757d;
+    font-size:12px;
+    opacity: 0.5; /* Lower value = more transparent */
+}
 </style>
 
 <section id="home" class="banner-slider-container">
@@ -236,18 +250,17 @@ document.addEventListener('DOMContentLoaded', function() {
             grabCursor: true,
             centeredSlides: true,
             loop: true,
-            loopAdditionalSlides: 3,
+            loopAdditionalSlides: 5,
             speed: 600,
-            autoplay: false,
-            // {
-            //     delay: 1500,
-            //     disableOnInteraction: false,
-            // },
+            autoplay: {
+                delay: 1500,
+                disableOnInteraction: false,
+            },            
             coverflowEffect: {
                 rotate: 0,        
-                stretch: 0,     
-                depth: 150,       
-                modifier: 1.5,
+                stretch: -150,     
+                depth: 250,       
+                modifier: 1,
                 slideShadows: false,
             },
             pagination: {
@@ -339,7 +352,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <?php if (!empty($data['settings']['latest_news_text'])): ?>
 <!-- LATEST NEWS MARQUEE SECTION -->
-<section class="py-2 gs-reveal" style="background: linear-gradient(90deg, #051a3d 0%, #0b3e82 50%, #051a3d 100%); border-top: 1px solid rgba(247, 168, 27, 0.3); border-bottom: 1px solid rgba(247, 168, 27, 0.3); box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; z-index: 10;">
+<section class="py-3" style="background: linear-gradient(90deg, #051a3d 0%, #0b3e82 50%, #051a3d 100%); border-top: 1px solid rgba(247, 168, 27, 0.3); border-bottom: 1px solid rgba(247, 168, 27, 0.3); box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; z-index: 10;">
     <div class="container-fluid px-md-4">
         <div class="d-flex align-items-center">
             <div class="fw-bold px-4 py-2 text-uppercase me-3 d-flex align-items-center shadow-sm rounded-pill" style="white-space: nowrap; background: linear-gradient(135deg, #f7a81b 0%, #e0930f 100%); color: #051a3d; font-size: 0.85rem; letter-spacing: 0.5px;">
@@ -347,8 +360,6 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="flex-grow-1 overflow-hidden position-relative" style="white-space: nowrap;">
                 <!-- Gradient overlays for smooth fade out at edges -->
-                <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 30px; background: linear-gradient(to right, #072352 0%, transparent 100%); z-index: 2;"></div>
-                <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 30px; background: linear-gradient(to left, #072352 0%, transparent 100%); z-index: 2;"></div>
                 
                 <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();" class="m-0 pt-1 text-white" style="font-family: 'Manrope', sans-serif; font-size: 1.05rem; letter-spacing: 0.5px; opacity: 0.95;">
                     <i class="fas fa-circle ms-4 me-3" style="font-size: 6px; vertical-align: middle; color: #f7a81b;"></i>
@@ -377,14 +388,23 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="col-lg-6 ps-lg-5 gs-reveal">
                 <h6 class="text-blue fw-bold text-uppercase mb-2">Introduction</h6>
                 <h2 class="display-5 fw-bold mb-4"><?= $data['settings']['about_title'] ?? 'Service Above Self'; ?></h2>
-                <p class="text-muted mb-4 fs-5">
+                <p class="text-muted mb-4 intro-desc">
                     <?= $data['settings']['about_mission'] ?? 'Our mission is to provide service to others, promote integrity, and advance world understanding...'; ?>
                 </p>
             </div>
         </div>
     </div>
 </section>
-
+<style>
+    .intro-desc {
+        font-size: 20px;
+    }
+    @media (max-width: 768px) {
+        .intro-desc {
+            font-size: 18px;
+        }
+    }
+</style>
 
 <!-- TEAM LEADERS SECTION -->
 <section id="team" class="page-section bg-white">
@@ -397,7 +417,14 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="swiper swiper-team gs-reveal" style="padding-bottom: 30px;">
             <div class="swiper-wrapper">
                 <?php if(!empty($data['team_leaders'])): ?>
-                    <?php foreach($data['team_leaders'] as $leader): ?>
+                    <?php 
+                        $displayLeaders = $data['team_leaders'];
+                        if (count($displayLeaders) > 0 && count($displayLeaders) < 6) {
+                            $multiplier = ceil(6 / count($displayLeaders));
+                            $displayLeaders = array_merge(...array_fill(0, $multiplier, $displayLeaders));
+                        }
+                    ?>
+                    <?php foreach($displayLeaders as $leader): ?>
                         <?php if (!empty($leader->image_url)): ?>
                             <div class="swiper-slide">
                                 <div class="card border-0 shadow-sm h-100 overflow-hidden mx-auto" style="background-color: transparent; max-width: 350px;">
@@ -518,34 +545,95 @@ document.addEventListener('DOMContentLoaded', function() {
             ?>
             <div class="col-md-6 gs-reveal">
                 <div class="d-flex align-items-center bg-white p-3 h-100 event-card-clickable" style="border: 1px solid rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.05)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" onclick='openEventModal(<?= htmlspecialchars(json_encode($evtImg), ENT_QUOTES, "UTF-8") ?>, <?= htmlspecialchars(json_encode($event->title), ENT_QUOTES, "UTF-8") ?>, <?= htmlspecialchars(json_encode($fullContent), ENT_QUOTES, "UTF-8") ?>)'>
-                    <div class="flex-shrink-0" style="width: 260px; height: 180px;">
+                    <div class="flex-shrink-0 event-width">
                         <img src="<?= $evtImg; ?>" class="w-100 h-100 object-fit-cover rounded-2" alt="<?= htmlspecialchars($event->title); ?>">
                     </div>
-                    <div class="flex-grow-1 ms-4">
-                        <h5 class="fw-bold text-dark mb-1" style="font-size: 1.1rem;"><?= $event->title; ?></h5>
-                        <p class="text-muted small mb-0" style="font-size: 0.85rem;"><?= htmlspecialchars($shortDesc); ?></p>
+                    <div class="flex-grow-1 ms-4" style="min-width: 0;">
+                        <h5 class="fw-bold text-dark mb-1 text-break" style="font-size: 1.1rem;"><?= $event->title; ?></h5>
+                        <p class="text-muted small mb-0 text-break" style="font-size: 0.85rem;"><?= htmlspecialchars($shortDesc); ?></p>
                     </div>
                 </div>
             </div>
             <?php endforeach; ?>
         </div>
+        <?php if(!empty($data['events'])): ?>
+            <div class="text-center mt-5 gs-reveal">
+                <button class="btn btn-outline-primary px-4 py-2 fw-bold" style="border-radius: 30px;" data-bs-toggle="modal" data-bs-target="#eventsAllModal">See More</button>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
+<style>
+    .event-width{
+        width: 260px !important;
+        height: auto;
+    }
+     @media (max-width: 768px) {
+        .event-width{
+            width: 150px !important;
+        }
+    }
+    
+</style>
 
 <!-- Event Modal -->
 <div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
-            <div class="modal-header border-0 pb-0 position-absolute top-0 end-0 z-3">
-                <button type="button" class="btn-close bg-white rounded-circle p-2 m-2 shadow-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-header border-0 pb-0 position-absolute top-0 end-0 z-3" style="pointer-events: none;">
+                <button type="button" class="btn-close bg-white rounded-circle p-2 m-2 shadow-sm" data-bs-dismiss="modal" aria-label="Close" style="pointer-events: auto;"></button>
             </div>
-            <div class="modal-body p-0">
-                <div class="w-100" style="height: 300px;">
+            <div class="modal-body p-0" style="overflow-y: auto; max-height: 85vh;">
+                <div class="w-100" style="height: 300px; flex-shrink: 0;">
                     <img id="eventModalImg" src="" class="w-100 h-100 object-fit-cover" alt="Event Image">
                 </div>
                 <div class="p-4 p-md-5">
                     <h3 id="eventModalTitle" class="fw-bold mb-4 font-playfair text-dark"></h3>
                     <p id="eventModalDesc" class="text-muted fs-6" style="line-height: 1.7; white-space: pre-wrap;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- All Events Modal -->
+<div class="modal fade" id="eventsAllModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-0 shadow-sm" style="z-index: 10;">
+                <h4 class="modal-title font-playfair fw-bold text-dark">All Events</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light" style="overflow-y: auto; max-height: 80vh;">
+                <div class="container py-4">
+                    <div class="row g-4">
+                        <?php if(!empty($data['events'])): ?>
+                            <?php foreach($data['events'] as $event): ?>
+                            <?php 
+                                $briefDesc = strip_tags($event->description ?? '');
+                                $fullContent = !empty($event->content) ? strip_tags($event->content) : $briefDesc;
+                                
+                                if(empty($briefDesc) && !empty($fullContent)) {
+                                    $briefDesc = $fullContent;
+                                }
+                                
+                                $shortDesc = substr($briefDesc, 0, 100) . (strlen($briefDesc) > 100 ? '...' : '');
+                                $evtImg = !empty($event->image_url) ? $event->image_url : 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop';
+                            ?>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center bg-white p-3 h-100 event-card-clickable" style="border: 1px solid rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.05)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" onclick='openEventModal(<?= htmlspecialchars(json_encode($evtImg), ENT_QUOTES, "UTF-8") ?>, <?= htmlspecialchars(json_encode($event->title), ENT_QUOTES, "UTF-8") ?>, <?= htmlspecialchars(json_encode($fullContent), ENT_QUOTES, "UTF-8") ?>)'>
+                                    <div class="flex-shrink-0 event-width">
+                                        <img src="<?= $evtImg; ?>" class="w-100 h-100 object-fit-cover rounded-2" alt="<?= htmlspecialchars($event->title); ?>">
+                                    </div>
+                                    <div class="flex-grow-1 ms-4" style="min-width: 0;">
+                                        <h5 class="fw-bold text-dark mb-1 text-break" style="font-size: 1.1rem;"><?= $event->title; ?></h5>
+                                        <p class="text-muted small mb-0 text-break" style="font-size: 0.85rem;"><?= htmlspecialchars($shortDesc); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -564,7 +652,7 @@ function openEventModal(img, title, desc) {
 
 <!-- PROJECTS SECTION -->
 <section id="projects" class="page-section bg-white">
-    <div class="container">
+    <div class="container py-5">
         <div class="text-center mb-5 gs-reveal">
             <h6 class="text-blue fw-bold text-uppercase mb-2">Our Articles</h6>
             <h2 class="display-5 fw-bold">Latest News</h2>
@@ -573,7 +661,15 @@ function openEventModal(img, title, desc) {
         <div class="swiper swiper-articles gs-reveal" style="padding-bottom: 50px;">
             <div class="swiper-wrapper">
                 <?php if(!empty($data['projects'])): ?>
-                    <?php foreach($data['projects'] as $project): ?>
+                    <?php 
+                        $displayProjects = $data['projects'];
+                        // Duplicate to ensure at least 6 items for infinite looping if there are few items
+                        if (count($displayProjects) > 0 && count($displayProjects) < 6) {
+                            $multiplier = ceil(6 / count($displayProjects));
+                            $displayProjects = array_merge(...array_fill(0, $multiplier, $displayProjects));
+                        }
+                    ?>
+                    <?php foreach($displayProjects as $project): ?>
                     <?php 
                         $briefProjDesc = strip_tags($project->description ?? '');
                         $fullProjContent = !empty($project->content) ? strip_tags($project->content) : $briefProjDesc;
@@ -590,7 +686,6 @@ function openEventModal(img, title, desc) {
                         <div class="card h-100 modern-card mx-auto project-card-clickable" style="max-width: 400px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.05)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" onclick='openEventModal(<?= htmlspecialchars(json_encode($projImg), ENT_QUOTES, "UTF-8") ?>, <?= htmlspecialchars(json_encode($project->title), ENT_QUOTES, "UTF-8") ?>, <?= htmlspecialchars(json_encode($fullProjContent), ENT_QUOTES, "UTF-8") ?>)'>
                             <div class="position-relative overflow-hidden" style="height: 250px;">
                                 <img src="<?= $projImg; ?>" class="card-img-top w-100 h-100 object-fit-cover transition-transform" alt="<?= htmlspecialchars($project->title); ?>">
-                                <div class="position-absolute top-0 end-0 m-3 badge" style="background-color: var(--primary-blue);"><?= $project->status; ?></div>
                             </div>
                             <div class="card-body p-4 text-start">
                                 <h5 class="fw-bold mb-3"><?= $project->title; ?></h5>
