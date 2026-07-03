@@ -481,15 +481,26 @@ document.addEventListener('DOMContentLoaded', function() {
             ?>
             
             <?php foreach($displayEvents as $event): ?>
+            <?php 
+                $briefDesc = strip_tags($event->description ?? '');
+                $fullContent = !empty($event->content) ? strip_tags($event->content) : $briefDesc;
+                
+                // Fallback if description is also empty but content exists
+                if(empty($briefDesc) && !empty($fullContent)) {
+                    $briefDesc = $fullContent;
+                }
+                
+                $shortDesc = substr($briefDesc, 0, 100) . (strlen($briefDesc) > 100 ? '...' : '');
+                $evtImg = !empty($event->image_url) ? $event->image_url : 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop';
+            ?>
             <div class="col-md-6 gs-reveal">
-                <div class="d-flex align-items-center bg-white p-3 h-100" style="border: 1px solid rgba(0,0,0,0.05);">
-                    <div class="flex-shrink-0" style="width: 140px; height: 100px;">
-                        <?php $evtImg = !empty($event->image_url) ? $event->image_url : 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop'; ?>
-                        <img src="<?= $evtImg; ?>" class="w-100 h-100 object-fit-cover rounded-1" alt="<?= htmlspecialchars($event->title); ?>">
+                <div class="d-flex align-items-center bg-white p-3 h-100 event-card-clickable" style="border: 1px solid rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.05)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" onclick='openEventModal(<?= htmlspecialchars(json_encode($evtImg), ENT_QUOTES, "UTF-8") ?>, <?= htmlspecialchars(json_encode($event->title), ENT_QUOTES, "UTF-8") ?>, <?= htmlspecialchars(json_encode($fullContent), ENT_QUOTES, "UTF-8") ?>)'>
+                    <div class="flex-shrink-0" style="width: 260px; height: 180px;">
+                        <img src="<?= $evtImg; ?>" class="w-100 h-100 object-fit-cover rounded-2" alt="<?= htmlspecialchars($event->title); ?>">
                     </div>
                     <div class="flex-grow-1 ms-4">
                         <h5 class="fw-bold text-dark mb-1" style="font-size: 1.1rem;"><?= $event->title; ?></h5>
-                        <p class="text-muted small mb-0" style="font-size: 0.85rem;"><?= substr(strip_tags($event->description ?? ($event->content ?? '')), 0, 100); ?></p>
+                        <p class="text-muted small mb-0" style="font-size: 0.85rem;"><?= htmlspecialchars($shortDesc); ?></p>
                     </div>
                 </div>
             </div>
@@ -498,29 +509,70 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 </section>
 
+<!-- Event Modal -->
+<div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="modal-header border-0 pb-0 position-absolute top-0 end-0 z-3">
+                <button type="button" class="btn-close bg-white rounded-circle p-2 m-2 shadow-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="w-100" style="height: 300px;">
+                    <img id="eventModalImg" src="" class="w-100 h-100 object-fit-cover" alt="Event Image">
+                </div>
+                <div class="p-4 p-md-5">
+                    <h3 id="eventModalTitle" class="fw-bold mb-4 font-playfair text-dark"></h3>
+                    <p id="eventModalDesc" class="text-muted fs-6" style="line-height: 1.7; white-space: pre-wrap;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openEventModal(img, title, desc) {
+    document.getElementById('eventModalImg').src = img;
+    document.getElementById('eventModalTitle').textContent = title;
+    document.getElementById('eventModalDesc').textContent = desc;
+    var modal = new bootstrap.Modal(document.getElementById('eventModal'));
+    modal.show();
+}
+</script>
+
 <!-- PROJECTS SECTION -->
 <section id="projects" class="page-section bg-white">
     <div class="container py-5">
         <div class="text-center mb-5 gs-reveal">
             <h6 class="text-blue fw-bold text-uppercase mb-2">Our Articles</h6>
-            <h2 class="display-5 fw-bold">Featured Articles</h2>
+            <h2 class="display-5 fw-bold">Latest News</h2>
             <div class="divider"></div>
         </div>
         <div class="swiper swiper-articles gs-reveal" style="padding-bottom: 50px;">
             <div class="swiper-wrapper">
                 <?php if(!empty($data['projects'])): ?>
                     <?php foreach($data['projects'] as $project): ?>
+                    <?php 
+                        $briefProjDesc = strip_tags($project->description ?? '');
+                        $fullProjContent = !empty($project->content) ? strip_tags($project->content) : $briefProjDesc;
+                        
+                        // Fallback if description is empty but content exists
+                        if(empty($briefProjDesc) && !empty($fullProjContent)) {
+                            $briefProjDesc = $fullProjContent;
+                        }
+                        
+                        $shortProjContent = substr($briefProjDesc, 0, 100) . (strlen($briefProjDesc) > 100 ? '...' : '');
+                        $projImg = !empty($project->image_url) ? $project->image_url : 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop'; 
+                    ?>
                     <div class="swiper-slide">
-                        <div class="card h-100 modern-card mx-auto" style="max-width: 400px;">
+                        <div class="card h-100 modern-card mx-auto project-card-clickable" style="max-width: 400px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.05)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" onclick='openEventModal(<?= htmlspecialchars(json_encode($projImg), ENT_QUOTES, "UTF-8") ?>, <?= htmlspecialchars(json_encode($project->title), ENT_QUOTES, "UTF-8") ?>, <?= htmlspecialchars(json_encode($fullProjContent), ENT_QUOTES, "UTF-8") ?>)'>
                             <div class="position-relative overflow-hidden" style="height: 250px;">
-                                <?php $projImg = !empty($project->image_url) ? $project->image_url : 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop'; ?>
                                 <img src="<?= $projImg; ?>" class="card-img-top w-100 h-100 object-fit-cover transition-transform" alt="<?= htmlspecialchars($project->title); ?>">
                                 <div class="position-absolute top-0 end-0 m-3 badge" style="background-color: var(--primary-blue);"><?= $project->status; ?></div>
                             </div>
                             <div class="card-body p-4 text-start">
                                 <h5 class="fw-bold mb-3"><?= $project->title; ?></h5>
                                 <div style="height: 2px; width: 40px; background-color: var(--accent-gold); margin-bottom: 1rem;"></div>
-                                <p class="text-muted small mb-0"><?= substr(strip_tags($project->content), 0, 100); ?>...</p>
+                                <p class="text-muted small mb-0"><?= htmlspecialchars($shortProjContent); ?></p>
                             </div>
                         </div>
                     </div>
@@ -610,7 +662,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <div class="row g-4">
             <?php if(!empty($data['gallery'])): ?>
-                <?php foreach($data['gallery'] as $item): ?>
+                <?php 
+                    $previewGallery = array_slice($data['gallery'], 0, 8); 
+                ?>
+                <?php foreach($previewGallery as $item): ?>
                 <div class="col-lg-3 col-md-4 col-sm-6 gs-reveal">
                     <div class="gallery-item-card overflow-hidden rounded-4 position-relative shadow-sm hover-shadow-lg" style="height: 250px; cursor: pointer;" onclick="openLightbox('<?= $item->image_url; ?>', '<?= addslashes($item->title); ?>', '<?= addslashes($item->category); ?>')">
                         <img src="<?= $item->image_url; ?>" class="w-100 h-100 object-fit-cover gallery-img" alt="<?= $item->title; ?>">
@@ -627,8 +682,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="col-12 text-center text-white-50"><p>No gallery images uploaded yet. Check back later!</p></div>
             <?php endif; ?>
         </div>
+        
+        <?php if(!empty($data['gallery'])): ?>
+            <div class="text-center mt-5 gs-reveal">
+                <button class="btn btn-outline-primary px-4 py-2 fw-bold" style="border-radius: 30px;" data-bs-toggle="modal" data-bs-target="#galleryAllModal">See All Photos</button>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
+
+<!-- All Photos Modal -->
+<div class="modal fade" id="galleryAllModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-0 shadow-sm" style="z-index: 10;">
+                <h4 class="modal-title font-playfair fw-bold text-dark">All Photos</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light" style="overflow-y: auto;">
+                <div class="container py-4">
+                    <div class="row g-4">
+                        <?php if(!empty($data['gallery'])): ?>
+                            <?php foreach($data['gallery'] as $item): ?>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="gallery-item-card overflow-hidden rounded-4 position-relative shadow-sm hover-shadow-lg" style="height: 200px; cursor: pointer;" onclick="openLightbox('<?= $item->image_url; ?>', '<?= addslashes($item->title); ?>', '<?= addslashes($item->category); ?>')">
+                                        <img src="<?= $item->image_url; ?>" class="w-100 h-100 object-fit-cover gallery-img" alt="<?= $item->title; ?>">
+                                        <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3" style="background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); opacity: 0; transition: opacity 0.4s ease;">
+                                            <?php if(!empty($item->category)): ?>
+                                                <span class="badge bg-warning text-dark align-self-start mb-2 px-2 py-1 small rounded-pill"><?= $item->category; ?></span>
+                                            <?php endif; ?>
+                                            <h6 class="fw-bold mb-0 text-white"><?= $item->title; ?></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Lightbox Modal -->
 <div class="modal fade" id="galleryLightbox" tabindex="-1" aria-hidden="true">
