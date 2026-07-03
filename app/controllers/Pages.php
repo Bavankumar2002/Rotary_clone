@@ -28,7 +28,7 @@ class Pages extends Controller {
         $db->query("SELECT * FROM events ORDER BY event_date DESC LIMIT 4");
         $events = $db->resultSet();
 
-        $db->query("SELECT * FROM gallery ORDER BY created_at DESC LIMIT 8");
+        $db->query("SELECT * FROM gallery ORDER BY created_at DESC");
         $gallery = $db->resultSet();
 
         $db->query("SELECT * FROM team_leaders ORDER BY display_order ASC, id DESC");
