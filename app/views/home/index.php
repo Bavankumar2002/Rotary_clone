@@ -364,14 +364,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- TEAM LEADERS SECTION -->
 <section id="team" class="page-section bg-white">
-    <div class="text-center mb-5 gs-reveal">
-        <h6 class="text-blue fw-bold text-uppercase mb-2">Our Leadership</h6>
-        <h2 class="display-5 fw-bold">Team Leaders</h2>
-        <div class="divider"></div>
-    </div>
-    
     <div class="container py-4">
-        <div class="swiper swiper-team gs-reveal" style="padding-bottom: 50px;">
+        <div class="text-center mb-5 gs-reveal">
+            <h6 class="text-blue fw-bold text-uppercase mb-2">Our Leadership</h6>
+            <h2 class="display-5 fw-bold">Team Leaders</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="swiper swiper-team gs-reveal" style="padding-bottom: 30px;">
             <div class="swiper-wrapper">
                 <?php if(!empty($data['team_leaders'])): ?>
                     <?php foreach($data['team_leaders'] as $leader): ?>
@@ -417,7 +416,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </script>
         <style>
         .swiper-team {
-            padding: 20px 0 60px 0 !important;
+            padding: 20px 0 30px 0 !important;
         }
         .team-pagination {
             bottom: 0 !important;

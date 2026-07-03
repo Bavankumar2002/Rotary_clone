@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.utils.toArray(".gs-reveal").forEach(function (elem) {
-        gsap.fromTo(elem, 
-            { autoAlpha: 0, y: 50 }, 
+        gsap.fromTo(elem,
+            { autoAlpha: 0, y: 50 },
             {
-                duration: 1, 
-                autoAlpha: 1, 
-                y: 0, 
+                duration: 1,
+                autoAlpha: 1,
+                y: 0,
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: elem,
@@ -43,16 +43,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     toggleActions: "play none none reverse"
                 }
             }
+        );
     });
 
     // Smooth Scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             let targetId = this.getAttribute('href');
-            if(targetId === '#') return;
-            
+            if (targetId === '#') return;
+
             let targetElement = document.querySelector(targetId);
-            if(targetElement) {
+            if (targetElement) {
                 e.preventDefault();
                 window.scrollTo({
                     top: targetElement.offsetTop - 70, // Adjust for fixed navbar
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Close mobile menu if open
                 const navbarToggler = document.querySelector('.navbar-toggler');
                 const navbarCollapse = document.querySelector('.navbar-collapse');
-                if(navbarCollapse.classList.contains('show')) {
+                if (navbarCollapse.classList.contains('show')) {
                     navbarToggler.click();
                 }
             }
@@ -75,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('scroll', () => {
         const statsSection = document.getElementById('about'); // or wherever stats are
         if (!statsSection) return;
-        
+
         const sectionPos = statsSection.getBoundingClientRect().top;
         const screenPos = window.innerHeight;
 

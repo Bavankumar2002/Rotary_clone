@@ -17,7 +17,12 @@ body {
     overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 700;
     color: var(--primary-text);
@@ -78,7 +83,8 @@ h1, h2, h3, h4, h5, h6 {
     transition: width 0.3s ease;
 }
 
-.nav-link:hover::after, .nav-link.active::after {
+.nav-link:hover::after,
+.nav-link.active::after {
     width: 80%;
 }
 
@@ -97,7 +103,10 @@ h1, h2, h3, h4, h5, h6 {
 .masthead::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: rgba(255, 255, 255, 0.4);
     z-index: 1;
 }
@@ -169,7 +178,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Sections */
 .page-section {
-    padding: 8rem 0;
+    padding: 25px;
     position: relative;
 }
 
@@ -248,18 +257,22 @@ h1, h2, h3, h4, h5, h6 {
     color: #000000 !important;
     opacity: 1 !important;
 }
+
 .form-control::-webkit-input-placeholder {
     color: #000000 !important;
     opacity: 1 !important;
 }
+
 .form-control::-moz-placeholder {
     color: #000000 !important;
     opacity: 1 !important;
 }
+
 .form-control:-ms-input-placeholder {
     color: #000000 !important;
     opacity: 1 !important;
 }
+
 .form-control::-ms-input-placeholder {
     color: #000000 !important;
     opacity: 1 !important;
@@ -268,6 +281,6 @@ h1, h2, h3, h4, h5, h6 {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .page-section {
-        padding: 3rem 0;
+        padding: 25px;
     }
 }
