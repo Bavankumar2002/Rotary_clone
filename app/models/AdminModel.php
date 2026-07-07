@@ -6,10 +6,10 @@ class AdminModel {
         $this->db = new Database;
     }
 
-    // Find admin by email
-    public function findAdminByEmail($email) {
-        $this->db->query('SELECT * FROM admins WHERE email = :email');
-        $this->db->bind(':email', $email);
+    // Find admin by username
+    public function findAdminByUsername($username) {
+        $this->db->query('SELECT * FROM admins WHERE username = :username');
+        $this->db->bind(':username', $username);
 
         $row = $this->db->single();
 
@@ -22,9 +22,9 @@ class AdminModel {
     }
 
     // Login Admin
-    public function login($email, $password) {
-        $this->db->query('SELECT * FROM admins WHERE email = :email');
-        $this->db->bind(':email', $email);
+    public function login($username, $password) {
+        $this->db->query('SELECT * FROM admins WHERE username = :username');
+        $this->db->bind(':username', $username);
 
         $row = $this->db->single();
 

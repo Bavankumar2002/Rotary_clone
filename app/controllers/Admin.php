@@ -25,17 +25,17 @@ class Admin extends Controller {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             
             $data = [
-                'email' => trim($_POST['email']),
-                'password' => trim($_POST['password']),
+                'username' => trim($_POST['username'] ?? ''),
+                'password' => trim($_POST['password'] ?? ''),
                 'error' => ''
             ];
 
-            if(empty($data['email']) || empty($data['password'])) {
-                $data['error'] = 'Please enter email and password';
+            if(empty($data['username']) || empty($data['password'])) {
+                $data['error'] = 'Please enter username and password';
             } else {
-                if($this->adminModel->findAdminByEmail($data['email'])) {
+                if($this->adminModel->findAdminByUsername($data['username'])) {
                     // User found
-                    $loggedInUser = $this->adminModel->login($data['email'], $data['password']);
+                    $loggedInUser = $this->adminModel->login($data['username'], $data['password']);
 
                     if($loggedInUser) {
                         // Create Session
@@ -55,7 +55,7 @@ class Admin extends Controller {
         } else {
             // Init data
             $data = [
-                'email' => '',
+                'username' => '',
                 'password' => '',
                 'error' => ''
             ];
@@ -65,14 +65,14 @@ class Admin extends Controller {
 
     public function createUserSession($user) {
         $_SESSION['rotary_admin_id'] = $user->id;
-        $_SESSION['rotary_admin_email'] = $user->email;
+        $_SESSION['rotary_admin_username'] = $user->username;
         $_SESSION['rotary_admin_name'] = $user->name;
         $this->redirect('admin/dashboard');
     }
 
     public function logout() {
         unset($_SESSION['rotary_admin_id']);
-        unset($_SESSION['rotary_admin_email']);
+        unset($_SESSION['rotary_admin_username']);
         unset($_SESSION['rotary_admin_name']);
         session_destroy();
         $this->redirect('admin/login');

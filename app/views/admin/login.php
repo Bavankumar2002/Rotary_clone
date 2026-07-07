@@ -10,8 +10,8 @@
                 <?php endif; ?>
                 <form action="<?= URLROOT; ?>/admin/login" method="POST">
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="inputEmail" type="email" name="email" placeholder="name@example.com" required />
-                        <label for="inputEmail">Email address</label>
+                        <input class="form-control" id="inputUsername" type="text" name="username" placeholder="Username" required />
+                        <label for="inputUsername">Username</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" id="inputPassword" type="password" name="password" placeholder="Password" required />
